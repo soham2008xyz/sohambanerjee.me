@@ -50,6 +50,7 @@
           wordCountTarget: _this.find('.words'),
           remotePath: _this.find('[itemprop=url]').attr('href'),
           remoteTarget: '.post-content',
+          wordsPerMinute: 180,
           success: function (data) {
             _this.find('.reading-time').css('display', 'inline-block');
           },
@@ -69,6 +70,7 @@
     $('.post-content').readingTime({
       readingTimeTarget: '.post-reading-time',
       wordCountTarget: '.post-word-count',
+      wordsPerMinute: 180,
       success: function (data) {
         $('.reading-time').css('display', 'inline-block');
       },

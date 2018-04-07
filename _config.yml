@@ -14,11 +14,11 @@ logo: "/assets/images/tn_logo.jpg"
 float_logo: true # true, false (default)
 
 # blog cover
-cover: "/assets/images/cA4aKEIPQrerBnp1yGHv_IMG_9534-3-2.jpg"
+cover: "/assets/images/cA4aKEIPQrerBnp1yGHv_IMG_9534-3-2-min.jpg"
 
 name: 'Soham Banerjee'
 author: 'Soham Banerjee'
-author_image: "/assets/images/author.jpg"
+author_image: "/assets/images/author-min.jpg"
 
 paginate:	5
 

@@ -4,8 +4,8 @@ title:  "Inspiration"
 date:   2016-10-30 03:34:25
 categories: 
 tags: featured
-image: /assets/article_images/inspiration/greg-rakozy-53292-unsplash.jpg
-image2: /assets/article_images/inspiration/greg-rakozy-53292-unsplash.jpg
+image: /assets/article_images/2016-10-30-inspiration/greg-rakozy-53292-unsplash-min.jpg
+image2: /assets/article_images/2016-10-30-inspiration/greg-rakozy-53292-unsplash-min.jpg
 ---
 We spend our life in search of inspiration. But inspiration is not something that adheres to a schedule, or a deadline, or a timeframe. Inspiration is that idea gnawing at the back of your head at three am in the morning, which makes you push back the sheets, climb out from your bed and start tapping away at your keyboard (or, in this case, my smartphone). But bear with me before the inevitable question, “Why the (unwanted) midnight sermon?” pops up in your minds.
 

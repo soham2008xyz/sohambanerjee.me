@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About
-image: /assets/images/about-bg.jpg
+image: /assets/article_images/about/oscar-nilsson-1860-unsplash-min.jpg
 permalink: /about/
 ---
 ## Hi. I'm Soham.

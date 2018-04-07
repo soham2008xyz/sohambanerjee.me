@@ -22,10 +22,11 @@
               <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{ site.author }}</h4>
               on
               <time datetime="{{ page.date | date: "%F %R" }}">{{ page.date | date_to_long_string }}</time>
+              <br class="visible-small">
               <div class="reading-time">
-                &nbsp;&nbsp;·&nbsp;&nbsp;
+                <span class="hidden-small">  ·  </span>
                 <span class="post-word-count"></span> words
-                &nbsp;&nbsp;·&nbsp;&nbsp;
+                  ·  
                 <span class="post-reading-time"></span> read
               </div>
               <!-- , tagged on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}} -->
@@ -44,12 +45,13 @@
               <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{ page.author }}</h4>
               on
               <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_long_string }}</time>
+              <br class="visible-small">
               <div class="reading-time">
-                  &nbsp;&nbsp;·&nbsp;&nbsp;
-                  <span class="post-word-count"></span> words
-                  &nbsp;&nbsp;·&nbsp;&nbsp;
-                  <span class="post-reading-time"></span> read
-                </div>
+                <span class="hidden-small">  ·  </span>
+                <span class="post-word-count"></span> words
+                  ·  
+                <span class="post-reading-time"></span> read
+              </div>
               <!-- , tagged on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}} -->
             </div>
           </div>

@@ -50,6 +50,19 @@ main
 .reading-time
   display: none
 
+.hidden-small
+  display: inline-block
+
+.visible-small
+  display: none
+
+@media (max-width: 700px)
+  .visible-small
+    display: inline-block !important
+
+  .hidden-small
+    display: none !important
+
 body
   font-family: $font-sans
   margin: 0
@@ -204,7 +217,7 @@ body
   padding: 16px 0
   span
     color: #b3b3b1
-    font-size: $rs/8*5
+    font-size: $rs/8*7.5
     text-transform: uppercase
     letter-spacing: 1px
 

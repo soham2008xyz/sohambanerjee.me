@@ -47,6 +47,12 @@ layout: default
             </section>
             <div class="post-meta">
               <time datetime="{{ post.date | date_to_long_string }}">{{ post.date | date_to_long_string }}</time>
+              <div class="reading-time">
+                &nbsp;&nbsp;·&nbsp;&nbsp;
+                <span class="words"></span> words
+                &nbsp;&nbsp;·&nbsp;&nbsp;
+                <span class="eta"></span> read
+              </div>
   <!--            <span class="post-tags-set">on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}}</span>-->
             </div>
           </div>
@@ -69,6 +75,12 @@ layout: default
             </section>
             <div class="post-meta">
               <time datetime="{{ post.date | date_to_long_string }}">{{ post.date | date_to_long_string }}</time>
+              <div class="reading-time">
+                &nbsp;&nbsp;·&nbsp;&nbsp;
+                <span class="words"></span> words
+                &nbsp;&nbsp;·&nbsp;&nbsp;
+                <span class="eta"></span> read
+              </div>
 <!--            <span class="post-tags-set">on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}}</span>-->
             </div>
           </div>
@@ -95,3 +107,7 @@ layout: default
     {{pagination}} -->
 
 </main>
+
+<script>
+  window.homepage = true;
+</script>

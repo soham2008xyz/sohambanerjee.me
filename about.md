@@ -6,7 +6,7 @@ permalink: /about/
 ---
 ## Hi. I'm Soham.
 
-I'm an engineer by education and an entrepreneur by vocation. I'm at times a dreamer and at times a does, albeit not always in that order. I'm on the wrong side of 23, and currently reside in the City of Joy.
+I'm an engineer by education and an entrepreneur by vocation. I'm at times a dreamer and at times a doer, albeit not always in that order. I'm on the wrong side of 23, and currently residing in the City of Joy.
 
 My day job includes being the resident jack-of-all-trades at [Renderbit Technologies](https://renderbit.com) and [OneWalletHub](https://onewallethub.com), and all the responsibility-juggling associated with running two startups. (Shameless self promotion - we do really cool stuff, you should check us out!)
 

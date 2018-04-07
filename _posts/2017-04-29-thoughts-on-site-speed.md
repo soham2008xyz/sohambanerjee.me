@@ -5,6 +5,7 @@ date:   2017-04-29 11:34:25
 categories: 
 tags: featured
 image: /assets/article_images/2017-04-29-thoughts-on-site-speed/ilya-pavlov-87438-unsplash-min.jpg
+image2: /assets/article_images/2017-04-29-thoughts-on-site-speed/ilya-pavlov-87438-unsplash-min.jpg
 ---
 We so often face the scenario when we wanted to look up something on our mobile phones, but gave up halfway when the site was too slow to load. In a world where more traffic is moving to mobile from traditional desktop browsers, loading speed has become a major factor that determines bounce rate and time spent by users on a website. But the dichotomy lies in the fact that if we make the site too barebones in an effort to make it lightweight, it reduces the usefulness (and often the usability as well) of the website.
 

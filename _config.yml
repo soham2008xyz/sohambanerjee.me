@@ -24,13 +24,13 @@ paginate:	5
 
 url: "https://sohambanerjee.me" # the base hostname & protocol for your site
 baseurl: ""
-#used to display twitter cards
+# used to display twitter cards
 twitter_handle: '@nonconformism'
 
-#fill in disqus shortname to use disqus
-#disqus: disqus-shortname
+# fill in disqus shortname to use disqus
+disqus: sohambanerjee-me
 
-#google_analytics: UA-XXXXX-X
+google_analytics: UA-117145487-1
 
 # social icons and sharing options
 social:

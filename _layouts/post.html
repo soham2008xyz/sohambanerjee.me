@@ -93,7 +93,19 @@
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = '{{site.disqus}}'; // required: replace example with your forum shortname
-
+            // Adds the onNewComment callback to the disqus_config of the embed code
+            // that sends 'New Comment' events over to Google Analytics.
+            // The callback can also be used for any other analytics service like Parse.ly, Chartbeat, Mixpanel
+            var disqus_config = function() {
+              this.callbacks.onNewComment = [function(comment) {
+                ga('send', {
+                  'hitType': 'event',            // Required.
+                  'eventCategory': 'Comments',   // Required.
+                  'eventAction': 'New Comment',  // Required.
+                  'eventLabel': 'New Comment'
+                });
+              }];
+            };
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

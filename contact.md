@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Contact
-image: /assets/article_images/about/oscar-nilsson-1860-unsplash-min.jpg
+image: /assets/article_images/contact/contact2-min.jpg
 permalink: /contact/
 ---
 

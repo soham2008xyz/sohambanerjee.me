@@ -231,6 +231,7 @@ body
     text-decoration: none
     &:hover
       color: #333
+
 .post
   .article-image
     position: absolute
@@ -361,6 +362,7 @@ body
     width: 100%
     font-family: $font-serif
     color: #333
+    padding-top: 100vh
     h1, h2, h3
       font-family: $font-sans
     h3, h4, h5, h6
@@ -522,6 +524,30 @@ body
           padding-bottom: 18px
           font-weight: 700
           color: #333
+
+.page
+  .article-image
+    position: absolute
+    background-color: #000
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    overflow: hidden
+    .post-image-image
+      background-size: cover
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      text-indent: -9999px
+      padding-top: 33%
+      z-index: 1
+    @media(max-width: 700px)
+      .post-image-image
+        display: block
+
 .share
   text-align: right
   padding: 20px 0 0

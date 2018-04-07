@@ -6,20 +6,20 @@
   <body itemscope itemtype="http://schema.org/Article">
     {% include header.html %}
     <main class="content" role="main">
-      <article class="post">
+      <article class="post page">
         {% if page.image %}
         <div class="article-image">
-          <div class="post-image-image" style="background-image: url({% if page.image %}{{ page.image }}{% endif %})">
+          <div class="post-image-image" style="background-image: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({% if page.image %}{{ page.image }}{% endif %});">
             Article Image
           </div>
           <div class="post-meta">
             <h1 class="post-title">{{ page.title }}</h1>
             <div class="cf post-meta-text">
               <div class="author-image" style="background-image: url({{ site.author_image | prepend: site.baseurl }})">Blog Logo</div>
-              <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{ site.author }}</h4>
+              <h4 class="author-name">By <span itemprop="author" itemscope itemtype="http://schema.org/Person">{{ site.author }}</span></h4>
             </div>
             <div style="text-align:center">
-              <a href="#topofpage" class="topofpage"><i class="fa fa-angle-down"></i></a>
+              <a href="#topofpage" class="topofpage"><i class="fa fa-angle-down animated pulse infinite"></i></a>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
       <div class="inner">
         <h1 class="blog-title">{{ site.title }}</h1>
         <h2 class="blog-description">{{ site.description }}</h2>
-        <a href={{ "/" | prepend: site.baseurl }} class="btn">Back to Overview</a>
+        <a href={{ "/" | prepend: site.baseurl }} class="btn">&larr; Back to Home</a>
       </div>
     </div>
     {% include javascripts.html %}

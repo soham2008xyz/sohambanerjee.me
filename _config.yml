@@ -1,31 +1,31 @@
 # Build settings
-gems:
+plugins:
   - jemoji
   - jekyll-paginate
 
 # Site settings
-title: "Mediator"
+title: "The Nonconformist"
 description: > # this means to ignore newlines until "email:"
-   A Jekyll theme - Medium inspired
+  Hi, I'm Soham. From time to time, I blog here.
 
-email: a-mail@mail.mail
-#blog logo
-logo: "/assets/images/df_logo.jpg"
+email: soham@renderbit.com
+# blog logo
+logo: "/assets/images/tn_logo.jpg"
 float_logo: true # true, false (default)
 
 # blog cover
 cover: "/assets/images/cA4aKEIPQrerBnp1yGHv_IMG_9534-3-2.jpg"
 
-name: 'Dirk Fabisch'
-author: 'Dirk Fabisch'
+name: 'Soham Banerjee'
+author: 'Soham Banerjee'
 author_image: "/assets/images/author.jpg"
 
 paginate:	5
 
-url: "http://myblog.***.***" # the base hostname & protocol for your site
+url: "https://sohambanerjee.me" # the base hostname & protocol for your site
 baseurl: ""
 #used to display twitter cards
-twitter_handle: '@dirkfabisch'
+twitter_handle: '@nonconformism'
 
 #fill in disqus shortname to use disqus
 #disqus: disqus-shortname
@@ -35,8 +35,8 @@ twitter_handle: '@dirkfabisch'
 # social icons and sharing options
 social:
   - icon:	twitter
-    url:	https://twitter.com/dirkfabisch
-    desc: Follow me on twitter
+    url:	https://twitter.com/nonconformism
+    desc: Follow me on Twitter
     share_url: http://twitter.com/share
     share_title: ?text=
     share_link: "&amp;url="
@@ -49,8 +49,8 @@ social:
 #    share_link: "&amp;u="
 
   - icon:	github
-    url:	https://github.com/dirkfabisch
-    desc:	Fork me on github
+    url:	https://github.com/soham2008xyz
+    desc:	Follow me on Github
     share_url:
     share_title:
     share_link:

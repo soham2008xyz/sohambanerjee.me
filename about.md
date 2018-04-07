@@ -1,17 +1,19 @@
 ---
 layout: page
 title: About
+image: /assets/images/about-bg.jpg
 permalink: /about/
 ---
+## Hi. I'm Soham.
 
-A medium inspired Jekyll blog theme. The basic idea came from the Ghost theme 
-[Readium 2.0](http://www.svenread.com/readium-ghost-theme/). I use mediator on my own blog [The Base](blog.base68.com).
+I'm an engineer by education and an entrepreneur by vocation. I'm at times a dreamer and at times a does, albeit not always in that order. I'm on the wrong side of 23, and currently reside in the City of Joy.
 
-You can **download** the theme here:
-[https://github.com/dirkfabisch/mediator](https://github.com/dirkfabisch/mediator) 
+My day job includes being the resident jack-of-all-trades at [Renderbit Technologies](https://renderbit.com) and [OneWalletHub](https://onewallethub.com), and all the responsibility-juggling associated with running two startups. (Shameless self promotion - we do really cool stuff, you should check us out!)
 
-You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+When I'm not tinkering with all things tech, you can find me curled up in a corner with a book and a cup of coffee. I play the occassional Counter Strike game, and in case it's not obvious yet,  I blog. Topics range from a deep dive into how the Ethereum blockchain works, to deep philosophical rants on anything under the sun.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+Now for the legalese. All views expressed here are solely my own, and do not necessarily reflect the views of any organization whatsoever with which I have been in the past, am presently or will be affiliated in the future.
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+Alright, enough talk. How about you check out a [playlist](https://open.spotify.com/user/soham_banerjee/playlist/2ze0SJ3efrF2jSBWuLXX8k?si=2eDzoFYUT3qtN8kkpdUhuw) of my favourite tunes on Spotify?
+
+<iframe src="https://open.spotify.com/embed/user/soham_banerjee/playlist/2ze0SJ3efrF2jSBWuLXX8k?theme=white" width="100%" height="500" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>

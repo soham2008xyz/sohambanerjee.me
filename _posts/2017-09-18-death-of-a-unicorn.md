@@ -5,7 +5,7 @@ date:   2017-09-18 17:45:34
 categories: 
 tags: featured
 image: /assets/article_images/2017-09-18-death-of-a-unicorn/uber-min.jpg
-image2: /assets/article_images/2017-09-18-death-of-a-unicorn/uber-min.jpg
+image2: /assets/article_images/2017-09-18-death-of-a-unicorn/uber-min-2.jpg
 ---
 
 In today's world, one would be hard-pressed indeed to come across someone who has not heard of Uber in any way. From a ride-sharing startup on the streets of San Francisco to a global transportation behemoth valued at a mind-boggling $70 billion, the startup, as they say, has apparently seen it all. People attribute it's unprecedented success to a variety of sources - ranging from novel use of technology, tapping into previously unexploited geographic regions and downright strong-arming local rules and regulations to level the playing field against local competition in emerging markets. Whatever be the modus operandi, the end result is as clear as daylight for all to see - an Uber is ubiquitous to a cheap, reliable and efficient mode of transportation around the world, so much so that "uber" is now a verb.

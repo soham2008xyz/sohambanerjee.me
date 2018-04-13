@@ -21,20 +21,20 @@
               <div class="author-image" style="background-image: url('{{ site.author_image | prepend: site.baseurl }}')">Blog Logo</div>
               <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{ site.author }}</h4>
               &nbsp;&nbsp;·&nbsp;&nbsp;
-              <i class="fa fa-calendar-o"></i>
+              <i class="fa fa-calendar-o"></i>&nbsp;
               <time datetime="{{ page.date | date: "%F %R" }}">{{ page.date | date_to_long_string }}</time>
               <br class="visible-small">
               <div class="reading-time">
                 <span class="hidden-small">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
-                <i class="fa fa-file-text-o"></i>
+                <i class="fa fa-file-text-o"></i>&nbsp;
                 <span class="post-word-count"></span> words
                 &nbsp;&nbsp;·&nbsp;&nbsp;
-                <i class="fa fa-clock-o"></i>
+                <i class="fa fa-clock-o"></i>&nbsp;
                 <span class="post-reading-time"></span> read
               </div>
               <div class="disqus-count">
                 &nbsp;&nbsp;·&nbsp;&nbsp;
-                <i class="fa fa-comments-o"></i>
+                <i class="fa fa-comments-o"></i>&nbsp;
                 <span class="disqus-comment-count" data-disqus-url="{{ page.url | prepend: site.baseurl | prepend: site.url }}"></span>
               </div>
               <!-- , tagged on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}} -->

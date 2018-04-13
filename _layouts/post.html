@@ -21,8 +21,28 @@
               <div class="author-image" style="background-image: url('{{ site.author_image | prepend: site.baseurl }}')">Blog Logo</div>
               <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{ site.author }}</h4>
               &nbsp;&nbsp;·&nbsp;&nbsp;
+              {% capture day %}{{ page.date | date: "%-d" }}{% endcapture %}
+              {% capture dayLastTwoDigits %}{{ day | modulo: 100 }}{% endcapture %}
+              {% if dayLastTwoDigits >= "11" and dayLastTwoDigits <= "13" %}
+                {% assign ordinal = "th" %}
+              {% else %}
+                {% capture dayLastDigit %}{{ day | modulo: 10 }}{% endcapture %}
+                {% case dayLastDigit %}
+                  {% when "1" %}
+                    {% assign ordinal = "st" %}
+                  {% when "2" %}
+                    {% assign ordinal = "nd" %}
+                  {% when "3" %}
+                    {% assign ordinal = "rd" %}
+                  {% else %}
+                    {% assign ordinal = "th" %}
+                {% endcase %}
+              {% endif %}
+              {% capture ordinalSup %}<sup>{{ ordinal }}</sup>{% endcapture %}
+              {% capture ordinalDay %}{{ day | append: ordinalSup }}{% endcapture %}
               <i class="fa fa-calendar-o"></i>&nbsp;
-              <time datetime="{{ page.date | date: "%F %R" }}">{{ page.date | date_to_long_string }}</time>
+              <!--<time datetime="{{ page.date | date: "%F %R" }}">{{ page.date | date_to_long_string }}</time>-->
+              <time datetime="{{ post.date | date_to_long_string }}">{{ ordinalDay }} {{ page.date | date: "%B %Y" }}</time>
               <br class="visible-small">
               <div class="reading-time">
                 <span class="hidden-small">&nbsp;&nbsp;·&nbsp;&nbsp;</span>

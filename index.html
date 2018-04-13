@@ -46,8 +46,28 @@ layout: default
           <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
         </section>
         <div class="post-meta">
+          {% capture day %}{{ post.date | date: "%-d" }}{% endcapture %}
+          {% capture dayLastTwoDigits %}{{ day | modulo: 100 }}{% endcapture %}
+          {% if dayLastTwoDigits >= "11" and dayLastTwoDigits <= "13" %}
+            {% assign ordinal = "th" %}
+          {% else %}
+            {% capture dayLastDigit %}{{ day | modulo: 10 }}{% endcapture %}
+            {% case dayLastDigit %}
+              {% when "1" %}
+                {% assign ordinal = "st" %}
+              {% when "2" %}
+                {% assign ordinal = "nd" %}
+              {% when "3" %}
+                {% assign ordinal = "rd" %}
+              {% else %}
+                {% assign ordinal = "th" %}
+            {% endcase %}
+          {% endif %}
+          {% capture ordinalSup %}<sup>{{ ordinal }}</sup>{% endcapture %}
+          {% capture ordinalDay %}{{ day | append: ordinalSup }}{% endcapture %}
           <i class="fa fa-calendar-o"></i>&nbsp;
-          <time datetime="{{ post.date | date_to_long_string }}">{{ post.date | date_to_long_string }}</time>
+          <!--<time datetime="{{ post.date | date_to_long_string }}">{{ post.date | date_to_long_string }}</time>-->
+          <time datetime="{{ post.date | date_to_long_string }}">{{ ordinalDay }} {{ post.date | date: "%B %Y" }}</time>
           <div class="disqus-count">
             &nbsp;&nbsp;·&nbsp;&nbsp;
             <i class="fa fa-comments-o"></i>&nbsp;
@@ -83,8 +103,28 @@ layout: default
           <p>{{ post.excerpt | strip_html | truncatewords: 50 }}</p>
         </section>
         <div class="post-meta">
+          {% capture day %}{{ post.date | date: "%-d" }}{% endcapture %}
+          {% capture dayLastTwoDigits %}{{ day | modulo: 100 }}{% endcapture %}
+          {% if dayLastTwoDigits >= "11" and dayLastTwoDigits <= "13" %}
+            {% assign ordinal = "th" %}
+          {% else %}
+            {% capture dayLastDigit %}{{ day | modulo: 10 }}{% endcapture %}
+            {% case dayLastDigit %}
+              {% when "1" %}
+                {% assign ordinal = "st" %}
+              {% when "2" %}
+                {% assign ordinal = "nd" %}
+              {% when "3" %}
+                {% assign ordinal = "rd" %}
+              {% else %}
+                {% assign ordinal = "th" %}
+            {% endcase %}
+          {% endif %}
+          {% capture ordinalSup %}<sup>{{ ordinal }}</sup>{% endcapture %}
+          {% capture ordinalDay %}{{ day | append: ordinalSup }}{% endcapture %}
           <i class="fa fa-calendar-o"></i>&nbsp;
-          <time datetime="{{ post.date | date_to_long_string }}">{{ post.date | date_to_long_string }}</time>
+          <!--<time datetime="{{ post.date | date_to_long_string }}">{{ post.date | date_to_long_string }}</time>-->
+          <time datetime="{{ post.date | date_to_long_string }}">{{ ordinalDay }} {{ post.date | date: "%B %Y" }}</time>
           <div class="disqus-count">
             &nbsp;&nbsp;·&nbsp;&nbsp;
             <i class="fa fa-comments-o"></i>&nbsp;

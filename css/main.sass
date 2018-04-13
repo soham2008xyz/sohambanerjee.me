@@ -10,7 +10,7 @@
 
 $rs: 16px
 
-$font-serif: Linux Libertine
+$font-serif: Linux Libertine, Georgia, "Times New Roman", serif
 $font-sans: Open Sans, MundoSans, "Helvetica Neue", Arial, Helvetica, sans-serif
 
 
@@ -47,7 +47,8 @@ main
   -webkit-font-smoothing:antialiased
   -moz-osx-font-smoothing:grayscale
 
-.reading-time
+.reading-time,
+.disqus-count
   display: none
 
 .hidden-small
@@ -191,9 +192,10 @@ body
           text-decoration: none
     .post-excerpt
       letter-spacing: -0.02em
+      font-family: $font-serif
       font-weight: 300
       font-style: normal
-      font-size: 20px
+      font-size: 24px
       line-height: 1.3
       color: #666665
     .post-meta

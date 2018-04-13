@@ -12,12 +12,17 @@
     // Override the old displayCount() with a new one so we can attach our helper onto it.
     DISQUSWIDGETS.displayCount = function(arg) {
       DISQUSWIDGETS.old_displayCount(arg);
-      $("a[href$=#disqus_thread],*[data-disqus-identifier]").trigger('disqus-counts-loaded');
-      $('.disqus-count').css('display', 'inline-block');
+      $("a[href$=#disqus_thread], [data-disqus-url]").trigger('disqus-counts-loaded');
+      // $('.disqus-count').css('display', 'inline-block');
     }
   }
   
   $.getScript('https://' + disqus_shortname + '.disqus.com/count.js', disqus_counts_loaded);
+  $('.disqus-comment-count').on('disqus-counts-loaded', function() {
+    if($(this).text() !== "") {
+      $(this).parent('.disqus-count').css('display', 'inline-block');
+    }
+  });
 </script>
 <!--<script id="dsq-count-scr" src="https://sohambanerjee-me.disqus.com/count.js" async></script>-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>

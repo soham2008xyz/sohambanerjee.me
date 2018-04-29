@@ -112,7 +112,27 @@
               <h4>{{ site.author }}</h4>
               <p class="bio">{{author.bio}}</p>
               <hr>
-              <p class="published">Published <time datetime="{{ page.date | date: "%F %R" }}">{{ page.date | date_to_string }}</time></p>
+              {% capture day %}{{ page.date | date: "%-d" }}{% endcapture %}
+              {% capture dayLastTwoDigits %}{{ day | modulo: 100 }}{% endcapture %}
+              {% if dayLastTwoDigits >= "11" and dayLastTwoDigits <= "13" %}
+                {% assign ordinal = "th" %}
+              {% else %}
+                {% capture dayLastDigit %}{{ day | modulo: 10 }}{% endcapture %}
+                {% case dayLastDigit %}
+                  {% when "1" %}
+                    {% assign ordinal = "st" %}
+                  {% when "2" %}
+                    {% assign ordinal = "nd" %}
+                  {% when "3" %}
+                    {% assign ordinal = "rd" %}
+                  {% else %}
+                    {% assign ordinal = "th" %}
+                {% endcase %}
+              {% endif %}
+              {% capture ordinalSup %}<sup>{{ ordinal }}</sup>{% endcapture %}
+              {% capture ordinalDay %}{{ day | append: ordinalSup }}{% endcapture %}
+              <!--<p class="published">Published <time datetime="{{ page.date | date: "%F %R" }}">{{ page.date | date_to_string }}</time></p>-->
+              <p class="published">Published <time datetime="{{ page.date | date: "%F %R" }}">{{ ordinalDay }} {{ page.date | date: "%B %Y" }}</time></p>
             </section>
           </div>
           {{/post}}

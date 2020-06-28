@@ -57,7 +57,9 @@
                 <i class="fa fa-comments-o"></i>&nbsp;
                 <span class="disqus-comment-count" data-disqus-url="{{ page.url | prepend: site.baseurl | prepend: site.url }}"></span>
               </div>
-              <!-- , tagged on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}} -->
+              {% comment %}
+              tagged on {% for slug in page.tags %}<span class="post-tag-{{ slug }}">{% unless forloop.first %}, {% endunless %}<a href="/tag/{{ slug }}">{{ slug }}</a></span>{% endfor %}
+              {% endcomment %}
             </div>
             <div style="text-align:center">
               <a href="#topofpage" class="topofpage"><i class="fa fa-angle-down animated pulse infinite"></i></a>
@@ -75,12 +77,14 @@
               <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_long_string }}</time>
               <br class="visible-small">
               <div class="reading-time">
-                <span class="hidden-small">  ·  </span>
+                <span class="hidden-small">&nbsp;·&nbsp;</span>
                 <span class="post-word-count"></span> words
-                  ·  
+                &nbsp;·&nbsp;
                 <span class="post-reading-time"></span> read
               </div>
-              <!-- , tagged on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}} -->
+              {% comment %}
+              tagged on {% for slug in page.tags %}<span class="post-tag-{{ slug }}">{% unless forloop.first %}, {% endunless %}<a href="/tag/{{ slug }}">{{ slug }}</a></span>{% endfor %}
+              {% endcomment %}
             </div>
           </div>
         </div>
@@ -135,14 +139,13 @@
               <p class="published">Published <time datetime="{{ page.date | date: "%F %R" }}">{{ ordinalDay }} {{ page.date | date: "%B %Y" }}</time></p>
             </section>
           </div>
-          {{/post}}
           <div class="isRight">
             <h5 class="index-headline featured"><span>Supported by</span></h5>
             <footer class="site-footer">
               <section class="poweredby">Proudly published with <a href="http://jekyllrb.com"> Jekyll</a></section>
               <a class="subscribe" href="{{ "/feed.xml" | prepend: site.baseurl }}"> <span class="tooltip"> <i class="fa fa-rss"></i> You should subscribe to my feed.</span></a>
               <div class="inner">
-                <section class="copyright">All content copyright <a href="{{@blog.url}}/">{{site.author}}</a> &copy; {{ site.time | date: '%Y' }}<br>All rights reserved.</section>
+                <section class="copyright">All content copyright <a href="{{ "/" | prepend: site.baseurl }}">{{site.author}}</a> &copy; {{ site.time | date: '%Y' }}<br>All rights reserved.</section>
               </div>
             </footer>
           </div>

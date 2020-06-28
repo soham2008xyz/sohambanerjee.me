@@ -31,10 +31,10 @@ layout: default
 
 
 <main class="content" role="main">
-  
+
   {% if site.tags.featured %}
   <h4 class="index-headline featured"><span>Featured Posts</span></h4>
-  
+
   <div class="container featured">
     {% for post in site.tags.featured %}
     <article class="post" itemscope itemtype="http://schema.org/BlogPosting" role="article">
@@ -82,16 +82,18 @@ layout: default
             <i class="fa fa-clock-o"></i>&nbsp;
             <span class="eta"></span> read
           </div>
-          <!--            <span class="post-tags-set">on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}}</span>-->
+          {% comment %}
+          <span class="post-tags-set">tagged on {% for slug in post.tags %}<span class="post-tag-{{ slug }}">{% unless forloop.first %}, {% endunless %}<a href="/tag/{{ slug }}">{{ slug }}</a></span>{% endfor %}</span>
+          {% endcomment %}
         </div>
       </div>
     </article>
     {% endfor %}
   </div>
-  
+
   <h4 class="index-headline normal"><span>All Posts</span></h4>
   {% endif %}
-  
+
   <div class="cf frame">
     {% for post in paginator.posts %}
     <article class="post" itemscope itemtype="http://schema.org/BlogPosting" role="article">
@@ -139,13 +141,15 @@ layout: default
             <i class="fa fa-clock-o"></i>&nbsp;
             <span class="eta"></span> read
           </div>
-          <!--            <span class="post-tags-set">on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}}</span>-->
+          {% comment %}
+          <span class="post-tags-set">tagged on {% for slug in page.tags %}<span class="post-tag-{{ slug }}">{% unless forloop.first %}, {% endunless %}<a href="/tag/{{ slug }}">{{ slug }}</a></span>{% endfor %}</span>
+          {% endcomment %}
         </div>
       </div>
     </article>
     {% endfor %}
   </div>
-  
+
   <nav class="pagination" role="navigation">
     {% if paginator.next_page %}
     <a class="newer-posts" href={{ "/page" | prepend: site.baseurl | append: paginator.next_page }}>&larr; Older posts</a>
@@ -159,14 +163,9 @@ layout: default
     {% endif %}
     {% endif %}
   </nav>
-  
-  
-  <!-- {{!! After all the posts, we have the previous/next pagination links }}
-    {{pagination}} -->
-    
+
   </main>
-  
+
   <script>
     window.homepage = true;
   </script>
-  

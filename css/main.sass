@@ -440,7 +440,9 @@ body
       margin: 0 auto
     figure
       margin: 0
-      padding: 0 0 30px
+      padding: 0
+      &.highlight:last-of-type
+        margin-bottom: 2em
     figcaption
       font-weight: 400
       font-style: italic
@@ -674,13 +676,14 @@ code
   border: 1px solid #e8e8e8
   border-radius: 3px
   background-color: #eef
+  margin-top: 0
 
 code
   padding: 1px 5px
 
 pre
   padding: 8px 12px
-  overflow-x: scroll
+  overflow-x: auto
   > code
     border: 0
     padding-right: 0

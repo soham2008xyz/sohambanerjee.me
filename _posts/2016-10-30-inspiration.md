@@ -2,8 +2,8 @@
 layout: post
 title:  "Inspiration"
 date:   2016-10-30 03:34:25
-categories: 
-tags: featured
+categories:
+tags: featured ramblings
 image: /assets/article_images/2016-10-30-inspiration/greg-rakozy-53292-unsplash-min.jpg
 image2: /assets/article_images/2016-10-30-inspiration/greg-rakozy-53292-unsplash-min.jpg
 ---
@@ -14,5 +14,5 @@ While much has been said and written about the importance of inspiration in the 
 So, next time you feel yourselves overwhelmed by monotony - take a break, go out and inspire yourselves. And do this as often as you can. By the way, inspiration does not always have to be the next-big-thing, or a cure for cancer - inspiration can be found in the smallest of places and things. And once you've finally found something that makes you tick, make sure you never let that go. (Yeah, I know, easier said than done, right?)
 
 > "Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it."
-> 
+>
 > &mdash; **Steven P. Jobs**

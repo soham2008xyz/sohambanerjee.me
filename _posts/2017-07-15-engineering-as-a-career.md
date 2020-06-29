@@ -2,8 +2,8 @@
 layout: post
 title:  "Engineering as a career"
 date:   2017-07-15 18:14:55
-categories: 
-tags: 
+categories:
+tags: education ramblings
 image: /assets/article_images/2017-07-15-engineering-as-a-career/photo-1453733190371-0a9bedd82893-min.jpg
 image2: /assets/article_images/2017-07-15-engineering-as-a-career/photo-1453733190371-0a9bedd82893-min.jpg
 ---

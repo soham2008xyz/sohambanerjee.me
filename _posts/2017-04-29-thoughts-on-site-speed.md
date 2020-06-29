@@ -2,8 +2,8 @@
 layout: post
 title:  "Thoughts on site speed, or why do sites slow down"
 date:   2017-04-29 11:34:25
-categories: 
-tags: featured
+categories:
+tags: featured development tutorials
 image: /assets/article_images/2017-04-29-thoughts-on-site-speed/ilya-pavlov-87438-unsplash-min.jpg
 image2: /assets/article_images/2017-04-29-thoughts-on-site-speed/ilya-pavlov-87438-unsplash-min.jpg
 ---

@@ -258,6 +258,8 @@ PLATFORMS
 DEPENDENCIES
   bourbon
   github-pages
+  jekyll-paginate
+  jekyll-sitemap
   jemoji
   wdm (>= 0.1.0)
 

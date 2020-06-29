@@ -19,7 +19,7 @@ Using some "macro" philosophy for structuring your code, like hexagonal architec
 Instead of writing repetitive `else if` statements, use an array to look up the wanted value based on the key you have. The code will be cleaner & more readable and you will see understandable exceptions if something goes wrong. No half-passing edge cases.
 
 {% highlight php %}
-/* Bad */
+// Bad
 if ($order->product->option->type === 'pdf') {
     $type = 'book';
 } else if ($order->product->option->type === 'epub') {
@@ -46,7 +46,7 @@ if ($type === 'book') {
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 $type = [
     'pdf'      => 'book',
     'epub'     => 'book',
@@ -70,7 +70,7 @@ $downloadable = [
 Try to avoid unnecessary nesting by returning a value early. Too much nesting & else statements tend to make code harder to read.
 
 {% highlight php %}
-/* Bad */
+// Bad
 if ($notificationSent) {
   $notify = false;
 } else if ($isActive) {
@@ -91,7 +91,7 @@ return $notify;
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 if ($notificationSent) {
   return false;
 }
@@ -113,7 +113,7 @@ return false;
 Don't split lines at random places, but don't make them too long either. Opening an array with `[` and indenting the values tends to work well. Same with long function parameter values. Other good places to split lines are chained calls and closures.
 
 {% highlight php %}
-/* Bad */
+// Bad
 // No line split
 return $this->request->session()->get($this->config->get('analytics.campaign_session_key'));
 
@@ -123,7 +123,7 @@ return $this->request
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 return $this->request->session()->get(
   $this->config->get('analytics.campaign_session_key')
 );
@@ -146,7 +146,7 @@ $this->validate($request, [
 Don't create variables when you can just pass the value directly.
 
 {% highlight php %}
-/* Bad */
+// Bad
 public function create()
 {
   $data = [
@@ -159,7 +159,7 @@ public function create()
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 public function create()
 {
   return $this->inertia('Resource/Create', [
@@ -175,7 +175,7 @@ public function create()
 The opposite of the previous tip. Sometimes the value comes from a complex call and as such, creating a variable improves readability & removes the need for a comment. Remember that context matters & your end goal is readability.
 
 {% highlight php %}
-/* Bad */
+// Bad
 Visit::create([
   'url' => $visit->url,
   'referer' => $visit->referer,
@@ -186,7 +186,7 @@ Visit::create([
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 $visit = Visit::create([
   'url'       => $visit->url,
   'referer'   => $visit->referer,
@@ -204,7 +204,7 @@ $visit->conversion_goals()->attach($conversionData);
 Your controllers should be simple. They should say things like "create invoice for order". They shouldn't be concerned with the details of how your database is structured. Leave that to the model.
 
 {% highlight php %}
-/* Bad */
+// Bad
 // Create invoice for order
 DB::transaction(function () use ($order) {
   Sinvoice = $order->invoice()->create();
@@ -216,7 +216,7 @@ DB::transaction(function () use ($order) {
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 $order->createInvoice();
 {% endhighlight %}
 
@@ -226,7 +226,7 @@ $order->createInvoice();
 Let's expand on the previous example. Sometimes, creating a class for a single action can clean things up. Models should encapsulate the business logic related to them, but they shouldn't be too big.
 
 {% highlight php %}
-/* Bad */
+// Bad
 public function createInvoice(): Invoice
 {
   if ($this->invoice()->exists()) {
@@ -244,7 +244,7 @@ public function createInvoice(): Invoice
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 // Order model
 public function createInvoice(): Invoice {
   if ($this->invoice()->exists()) {
@@ -297,7 +297,7 @@ public function rules()
 Consider offloading some logic from controllers to events. For example, when creating models. The benefit is that creating these models will work the same everywhere (controllers, jobs, ...) and the controller has one less worry about the details of the DB schema.
 
 {% highlight php %}
-/* Bad */
+// Bad
 // Only works in this place & concerns it with
 // details that the model should care about.
 if (! isset($data['name'])) {
@@ -308,7 +308,7 @@ $conversion = Conversion::create($data);
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 $conversion = Conversion::create($data);
 
 // Model
@@ -370,7 +370,7 @@ function html2text($html = ''): string
 Sometimes people put helpers into a class. Beware, it can get messy. This is a class with only static methods used as helper functions. It's usually better to put these methods into classes with related logic or just keep them as global functions.
 
 {% highlight php %}
-/* Bad */
+// Bad
 class Helper
 {
   public function convertCurrency(Money $money, string $currency): self
@@ -391,7 +391,7 @@ Helper::convertCurrency($total, 'EUR');
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 class Money
 {
   // the other money/currency logic
@@ -443,7 +443,7 @@ Below are two tactics for the fixing second case.
 Rather than passing a huge amount of arguments in a specific order, consider creating an object with properties to store this data. Bonus points if you can find that some behavior can be moved into to this object.
 
 {% highlight php %}
-/* Bad */
+// Bad
 public function log($url, $route_name, $route_data, $campaign_code, $traffic_source, $referer, $user_id, $visitor_id, $ip, $timestamp)
 {
   // ...
@@ -451,7 +451,7 @@ public function log($url, $route_name, $route_data, $campaign_code, $traffic_sou
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 public function log(Visit $visit)
 {
   // ...
@@ -497,14 +497,14 @@ Visit::make($url, $routeName, $routeData)
 Creating custom collections can be a great way to achieve more expressive syntax. Consider this example with order totals.
 
 {% highlight php %}
-/* Bad */
+// Bad
 $total = $order->products->sum(function (OrderProduct $product) {
   return $product->price * $product->quantity * (1 + $product->vat_rate);
 });
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 $order->products->total();
 
 class OrderProductCollection extends Collection
@@ -524,7 +524,7 @@ class OrderProductCollection extends Collection
 Don't think that long variable/method names are wrong. They're not. They're expressive. Better to call a longer method than a short one and check the docblock to understand what it does. Same with variables. Don't use nonsense 3-letters abbreviations.
 
 {% highlight php %}
-/* Bad */
+// Bad
 $ord = Order::create($data);
 
 // ...
@@ -533,7 +533,7 @@ $ord->notify();
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 $order = Order::create($data);
 
 // ...
@@ -557,14 +557,14 @@ Rather than thinking "what can this object do", think about "what can be done wi
 
 {:style="margin-top: 1em"}
 {% highlight php %}
-/* Bad */
+// Bad
 $gardener->water($plant);
 
 $orderManager->lock($order);
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 $plant->water();
 
 $order->lock();
@@ -613,7 +613,7 @@ Similar to single-use traits. This tactic is great when you have a very long tem
 Sometimes you may have multiple classes with the same name. Rather than importing them with an alias, import the namespaces.
 
 {% highlight php %}
-/* Bad */
+// Bad
 use App\Types\Entries\Visit as VisitEntry;
 use App\Storage\Database\Models\Visit as VisitModel;
 
@@ -629,7 +629,7 @@ class DatabaseStorage
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 use App\Types\Entries;
 use App\Storage\Database\Models;
 
@@ -650,14 +650,14 @@ class DatabaseStorage
 Rather than writing complex `where()` clauses, create query scopes with expressive names. This will make your e.g. controllers have to know less about the database structure and your code will be cleaner.
 
 {% highlight php %}
-/* Bad */
+// Bad
 Order::whereHas('status', function ($status) {
   return true$status->where('canceled', true);
 })->get();
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 Order::whereCanceled()->get();
 
 class Order extends Model
@@ -677,7 +677,7 @@ class Order extends Model
 If you want to retrieve some data from a model, create an accessor. Keep methods for things that _change_ the model in some way.
 
 {% highlight php %}
-/* Bad */
+// Bad
 $user->gravatarUrl();
 
 class User extends Authenticable
@@ -692,7 +692,7 @@ class User extends Authenticable
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 Suser->gravatar_url;
 
 class User extends Authenticable
@@ -737,12 +737,12 @@ return [
 Instead of writing controller actions like `PostController@index`, use the callable array syntax `[PostController::class, 'index']`. You will be able to navigate to the class by clicking `PostController`.
 
 {% highlight php %}
-/* Bad */
+// Bad
 Route::get('/posts', 'PostController@index');
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-/* Good */
+// Good
 Route::get('/posts', [PostController::class, 'index']);
 {% endhighlight %}
 

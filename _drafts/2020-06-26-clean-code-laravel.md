@@ -4,7 +4,7 @@ title: Writing cleaner code in Laravel
 date: 2020-06-26 08:45:11
 categories:
 tags: featured, development, laravel
-image: /assets/article_images/2016-10-30-inspiration/greg-rakozy-53292-unsplash-min.jpg
+image: /assets/article_images/2020-06-26-clean-code-laravel/henri-l-CHt4BMi0-Is-unsplash.jpg
 ---
 In this post, I'll list tactics you can use to write cleaner code in Laravel. As you use them repeatedly, you'll develop a sense for what's good code and what's bad code. I'll also sprinkle some general Laravel code advice in between these tactics.
 

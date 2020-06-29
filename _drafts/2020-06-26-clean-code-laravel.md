@@ -346,3 +346,135 @@ public function handle(Request $request, Closure $next)
   return $response;
 }
 {% endhighlight %}
+
+{:start="12"}
+12. **Create helper functions**
+
+If you repeat some code a lot, consider if extracting it to a helper function would make the code cleaner.
+
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+// app/helpers.php, autoloaded in composer.json
+function money(int $amount, string $currency = null): Money
+{
+  return new Money($amount, $currency ?? config('shop.base_currency'));
+}
+
+function html2text($html = ''): string
+{
+  return str_replace('&nbsp;', ' ', strip_tags($html));
+}
+{% endhighlight %}
+
+{:start="13"}
+13. **Avoid helper _classes_**
+
+Sometimes people put helpers into a class. Beware, it can get messy. This is a class with only static methods used as helper functions. It's usually better to put these methods into classes with related logic or just keep them as global functions.
+
+{% highlight php %}
+/* Bad */
+class Helper
+{
+  public function convertCurrency(Money $money, string $currency): self
+  {
+    $currencyConfig = config("shop.currencies.$currency");
+    $decimalDiff = ...
+
+    return new static(
+      (int) round($money->baseValue() * $currencyConfig[value] * 10**$decimalDiff, 0),
+      $currency
+    );
+  }
+}
+
+// Usage
+use App\Helper;
+Helper::convertCurrency($total, 'EUR');
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+class Money
+{
+  // the other money/currency logic
+
+  public function convertTo(string $currency): self
+  {
+    $currencyConfig = config("shop.currencies.$currency");
+    $decimalDiff = ...
+
+    return new static(
+      (int) round($this->baseValue() * $currencyConfig[value * 10**$decimalDiff, 0),
+      $currency
+    );
+  }
+}
+
+// Usage
+$EURtotal = $total->convertTo('EUR');
+{% endhighlight %}
+
+{:start="14"}
+14. **Dedicate a weekend towards learning proper OOP**
+
+Know the difference between static/instance methods & variables and private/protected/public visibility. Also learn how Laravel uses magic methods. You don't need this as a beginner, but as your code grows, it's crucial.
+
+{:start="15"}
+15. **Don't just write procedural code in classes**
+
+This ties the previous tweet with the other tips here. OOP exists to make your code more readable, use it. Don't just write 400 line long procedural code in controller actions.
+
+{:start="16"}
+16. **Read up on things like SRP & follow them to _reasonable_ extent**
+
+Avoid having classes that deal with many unrelated things. But, for the love of god, don't create a class for every single thing. You're trying to write clean code. You're not trying to please the separation gods.
+
+{:start="17"}
+17. **Avoid too many parameters in functions**
+
+When you see a function with a huge amount of parameters, it can mean:
+
+1. The function has too many responsibilities. Separate.
+2. The responsibilities are fine, but you should refactor the long signature.
+
+Below are two tactics for the fixing second case.
+
+{:start="18"}
+18. **Use Data Transfer Objects (DTOs)**
+
+Rather than passing a huge amount of arguments in a specific order, consider creating an object with properties to store this data. Bonus points if you can find that some behavior can be moved into to this object.
+
+{% highlight php %}
+/* Bad */
+public function log($url, $route_name, $route_data, $campaign_code, $traffic_source, $referer, $user_id, $visitor_id, $ip, $timestamp)
+{
+  // ...
+}
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+public function log(Visit $visit)
+{
+  // ...
+}
+
+class Visit
+{
+  public string $url;
+  public ?string $routeName;
+  public array $routeData;
+
+  public ?string $campaign;
+  public array $trafficSource[];
+
+  public ?string $referer;
+  public ?string $userId;
+  public string $visitorId;
+  public ?string $ip;
+
+  public Carbon $timestamp;
+
+  // ...
+}
+{% endhighlight %}

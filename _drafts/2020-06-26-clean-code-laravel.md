@@ -801,3 +801,288 @@ $productImage
     // ...
   });
 {% endhighlight %}
+
+{:start="33"}
+33. **Use short operators**
+
+PHP has many great operators that can replace ugly `if` checks. Memorize them.
+
+{% highlight php %}
+// Bad
+// truthy test
+if (! $foo) {
+  $foo = 'bar';
+}
+
+// null test
+if (is_null($foo)) {
+  $foo = 'bar';
+}
+
+// isset test
+if (! isset($foo)) {
+  $foo = 'bar';
+}
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+// Good
+// truthy test
+$foo = $foo ?: 'bar';
+
+// null test
+$foo = $foo ?? 'bar';
+// PHP 7.4
+$foo ??= 'bar';
+
+// isset test
+$foo = $foo ?? 'bar';
+// PHP 7.4
+$foo ??= 'bar';
+{% endhighlight %}
+
+{:start="34"}
+34. **Decide if you like spaces around operators**
+
+Above you can see that I use space between `!` and the value I'm negating. I like this, because it makes it clear that the value is being negated. I do the same around dots. Decide if you like it. It can (imo) clean up your code.
+
+{:start="35"}
+35. **Helpers instead of facades**
+
+Consider using helpers instead of facades. They can clean things up. This is largely a matter of personal preference, but calling a global function instead of having to import a class and statically call a method feels nicer to me. Bonus points for `session('key')` syntax.
+
+{% highlight php %}
+// Bad
+Cache::get('foo');
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+// Good
+cache()->get('foo');
+// Better
+cache('foo');
+{% endhighlight %}
+
+{:start="36"}
+36. **Create custom Blade directives for business logic**
+
+You can make your Blade templates more expressive by creating custom directives. For example, rather than checking if the user has the admin role, you could use `@admin`.
+
+{% highlight php %}
+// Bad
+@if(auth()->user()->hasRole('admin'))
+  // ...
+@else
+  // ...
+@endif
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+// Good
+@admin
+  // ...
+@else
+  // ...
+@endadmin
+{% endhighlight %}
+
+{:start="37"}
+37. **Avoid queries in Blade when possible**
+
+Sometimes you may want to execute DB queries in blade. There are some ok use cases for this, such as in layout files. But if it's a view returned by a controller, pass the data in the view data instead.
+
+{% highlight php %}
+// Bad
+@foreach(Product::where('enabled', false)->get() as $product)
+  // ...
+@endforeach
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+// Good
+// Controller
+return view('foo', [
+  'disabledProducts' => Product::where('enabled', false)->get(),
+]);
+
+// View
+@foreach($disabledProducts as $product)
+  // ...
+@endforeach
+{% endhighlight %}
+
+{:start="38"}
+38. **Use strict comparison**
+
+ALWAYS use strict comparison (`===` and `!==`). If needed, cast things go the correct type before comparing. Better than weird `==` results. Also consider enabling strict types in your code. This will prevent passing variables of wrong data types to functions.
+
+{% highlight php %}
+// Bad
+$foo == 'bar';
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+// Good
+$foo === 'bar';
+// Better
+declare(strict_types=1);
+{% endhighlight %}
+
+{:start="39"}
+39. **Use docblocks only when they clarify things**
+
+Many people will disagree with this, because they do it. But it makes no sense. There's no point in using docblocks when they don't give any extra information. If the typehint is enough, don't add a docblock. That's just noise.
+
+{% highlight php %}
+// Bad
+// No types at all
+function add_5($foo)
+{
+  return $foo + 5;
+}
+
+// The @param annotation adds precisely 0% value and 100% noise.
+/**
+ * Add 5 to a number.
+ *
+ * @param int $foo
+ * @return int
+ */
+function add_5(int $foo): int
+{
+  return $foo + 5;
+}
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+// Good
+// Everything is clear without a docblock
+function add_5(int $foo)
+{
+  return $foo + 5;
+}
+
+// The typehint said as much as it could & the annotation said even more.
+/**
+ * Turn words into a sentence.
+ *
+ * @param string[] $words
+ * @return string
+ */
+function sentenceFromWords(array $words): string
+{
+  return implode(' ', $words) . '.';
+}
+
+// Personal favourite. Only use the annotations that bring value. Don't use description or @return just because it's so common.
+/** @param string[] $words */
+function sentenceFromWords(array $words): string
+{
+  return implode(' ', $words) . '.';
+}
+{% endhighlight %}
+
+{:start="40"}
+40. **Have a single source of truth for validation rules**
+
+If you validate some resource's attributes on multiple places, you definitely want to centralize these validation rules, so that you don't change them in one place but forget about the other places. I often find myself keeping validation rules in a method on the model. This lets me reuse them wherever I may need - including in controllers or form requests.
+
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+class Reply extends Model
+{
+  public static function getValidationRules(): array
+  {
+    return [
+      'thread_id' => ['required', 'integer'],
+      'user_id'   => ['required', 'integer'],
+      'body'      => ['required', 'string', new SpamRule()],
+    ];
+  }
+}
+{% endhighlight %}
+
+{:start="41"}
+41. **Use collections when they can clean up your code**
+
+Don't turn all arrays into collections just because Laravel offers them, but DO turn arrays into collections when you can make use of collection syntax to clean up your code.
+
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+$collection = collect([
+  ['name' => 'Regena', 'age' => null],
+  ['name' => 'Linda', 'age' => 14],
+  ['name' => 'Diego', 'age' => 23],
+  ['name' => 'Linda', 'age' => 84],
+]);
+
+$collection->firstWhere('age', '>=', 18);
+{% endhighlight %}
+
+{:start="42"}
+42. **Write functional code when it benefits you**
+
+Functional code can both clean things up and make them impossible to understand. Refactor common loops into functional calls, but don't write stupidly complex reduce()s just to avoid writing a loop. There's a use case for both.
+
+{% highlight php %}
+// Bad
+return array_unique(array_reduce($keywords, function ($result, $keyword) {
+  return array_merge($result, array_reduce($this->variantGenerators, function ($result2, $generator) use ($keyword) {
+    return array_merge($result2, array_map(function ($variant) {
+      return strtolower($variant);
+    }, $generator::getVariants($keyword)));
+  }, []));
+}, []));
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+// Good
+return $this->items()->reduce(function (Money $sum, OrderItem $item) {
+  return $sum->addMoney($item->subtotal());
+}, money(0, $this->currency));
+{% endhighlight %}
+
+{:start="43"}
+43. **Comments usually indicate poor code design**
+
+Before writing a comment, ask yourself if you could rename some things or create variables to improve readability. If that's not possible, write the comment in a way that both your colleagues and you will understand in 6 months.
+
+{:start="44"}
+44. **Context matters**
+
+Above I said that moving business logic to action/service classes is good. But context matters. Here's code design advice from a popular "Laravel best practices" repo. There's absolutely no reason to put a 3-line check into a class. That's just overengineered.
+
+{% highlight php %}
+// Bad
+public function store(Request $request)
+{
+  $this->articleService->handleUploadedImage($request->file('image'));
+}
+
+class ArticleService
+{
+  public function handleUploadedImage($image)
+  {
+    if (!is_null($image)) {
+      $image->move(public_path('images') . 'temp');
+    }
+  }
+}
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+// Good
+public function store(Request $request)
+{
+  if ($request->hasFile('image')) {
+    $request->file('image')->move(public_path('images') . 'temp');
+  }
+
+  // ...
+}
+{% endhighlight %}
+
+{:start="45"}
+45. **Use only what helps you and ignore everything else**
+
+Your goal to write more readable code. Your goal is NOT to do what someone said on the internet. These tips are just tactics that tend to help with clean code. Keep your end goal in mind and ask yourself "is this better?"

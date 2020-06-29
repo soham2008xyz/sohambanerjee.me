@@ -20,7 +20,7 @@ name: 'Soham Banerjee'
 author: 'Soham Banerjee'
 author_image: "/assets/images/author-min.jpg"
 
-paginate:	5
+paginate: 5
 
 url: "https://sohambanerjee.me" # the base hostname & protocol for your site
 baseurl: ""
@@ -34,30 +34,23 @@ google_analytics: UA-117145487-1
 
 # social icons and sharing options
 social:
-  - icon:	twitter
-    url:	https://twitter.com/nonconformism
+  - icon: twitter
+    url: https://twitter.com/nonconformism
     desc: Follow me on Twitter
     share_url: http://twitter.com/share
     share_title: ?text=
     share_link: "&amp;url="
 
-  - icon:	facebook
-    url:	https://facebook.com/TheNonconformist
+  - icon: facebook
+    url: https://facebook.com/TheNonconformist
     desc: Connect with me on Facebook
     share_url: https://www.facebook.com/sharer.php
     share_title: ?t=
     share_link: "&amp;u="
 
-  - icon:	github
-    url:	https://github.com/soham2008xyz
-    desc:	Follow me on Github
+  - icon: github
+    url: https://github.com/soham2008xyz
+    desc: Follow me on Github
     share_url:
     share_title:
     share_link:
-
-#  - icon:	google-plus
-#    url:	https://google.com/???
-#    desc:	Add me on google+
-#    share_url:
-#    share_title:
-#    share_link:

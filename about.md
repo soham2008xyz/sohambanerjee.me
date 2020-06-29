@@ -4,9 +4,11 @@ title: About
 image: /assets/article_images/about/oscar-nilsson-1860-unsplash-min.jpg
 permalink: /about/
 ---
-## Hi. I'm Soham.
+## Hi, I'm Soham
 
-I'm an engineer by education and an entrepreneur by vocation. I'm at times a dreamer and at times a doer, albeit not always in that order. I'm on the wrong side of 23, and currently residing in the City of Joy.
+{% capture current_year %}{{ 'now' | date: "%Y" }}{% endcapture %}
+{% capture age %}{{ current_year | minus: 1994 | minus: 1 }}{% endcapture %}
+I'm an engineer by education and an entrepreneur by vocation. I'm at times a dreamer and at times a doer, albeit not always in that order. I'm on the wrong side of {{ age }}, and currently residing in the City of Joy.
 
 My day job includes being the resident jack-of-all-trades at [Renderbit Technologies](https://renderbit.com) and [OneWalletHub](https://onewallethub.com), and all the responsibility-juggling associated with running two startups. (Shameless self promotion - we do really cool stuff, you should check us out!)
 

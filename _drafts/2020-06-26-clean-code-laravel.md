@@ -88,6 +88,7 @@ if ($notificationSent) {
     }
   }
 }
+
 return $notify;
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
@@ -96,12 +97,15 @@ return $notify;
 if ($notificationSent) {
   return false;
 }
+
 if ($isActive && $total > 100) {
   return true;
 }
+
 if (! $isActive && $canceled) {
   return true;
 }
+
 return false;
 {% endhighlight %}
 
@@ -164,5 +168,181 @@ public function create()
     'resource'      => 'campaign',
     'generatedCode' => Str::random(8),
   ]);
+}
+{% endhighlight %}
+
+{:start="6"}
+6. **Create variables when they improve readability**
+
+The opposite of the previous tip. Sometimes the value comes from a complex call and as such, creating a variable improves readability & removes the need for a comment. Remember that context matters & your end goal is readability.
+
+{% highlight php %}
+/* Bad */
+Visit::create([
+  'url' => $visit->url,
+  'referer' => $visit->referer,
+  'user_id' => $visit->userId,
+  'ip' => $visit->ip,
+  'timestamp' => $visit->timestamp,
+])->conversion_goals()->attach($conversionData);
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+$visit = Visit::create([
+  'url'       => $visit->url,
+  'referer'   => $visit->referer,
+  'user_id'   => $visit->userId,
+  'ip'        => $visit->ip,
+  'timestamp' => $visit->timestamp,
+]);
+
+$visit->conversion_goals()->attach($conversionData);
+{% endhighlight %}
+
+{:start="7"}
+7. **Create model methods for business logic**
+
+Your controllers should be simple. They should say things like "create invoice for order". They shouldn't be concerned with the details of how your database is structured. Leave that to the model.
+
+{% highlight php %}
+/* Bad */
+// Create invoice for order
+DB::transaction(function () use ($order) {
+  Sinvoice = $order->invoice()->create();
+
+  $order—>pushStatus(new AwaitingShipping);
+
+  return $invoice;
+});
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+$order->createInvoice();
+{% endhighlight %}
+
+{:start="8"}
+8. **Create action classes**
+
+Let's expand on the previous example. Sometimes, creating a class for a single action can clean things up. Models should encapsulate the business logic related to them, but they shouldn't be too big.
+
+{% highlight php %}
+/* Bad */
+public function createInvoice(): Invoice
+{
+  if ($this->invoice()->exists()) {
+    throw new OrderAlreadyHasAnInvoice('Order already has an invoice.');
+  }
+
+  return DB::transaction(function () use ($order) {
+    $invoice = $order->invoice()->create();
+
+    $order->pushStatus(new AwaitingShipping);
+
+    return $invoice;
+  });
+}
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+// Order model
+public function createInvoice(): Invoice {
+  if ($this->invoice()->exists()) {
+    throw new OrderAlreadyHasAnInvoice('Order already has an invoice.');
+  }
+
+  return app(CreateInvoiceForOrder::class)($this);
+}
+
+// Action class
+class CreatelnvoiceForOrder
+{
+  public function _invoke(Order $order): Invoice
+  {
+    return DB::transaction(function () use ($order) {
+      $invoice = $order->invoice()->create();
+
+      $order->pushStatus(new AwaitingShipping);
+
+      return $invoice;
+    });
+  }
+}
+{% endhighlight %}
+
+{:start="9"}
+9. **Consider form requests**
+
+Consider using form requests. They're a great place to hide complex validation logic. But beware of exactly that — hiding things. When your validation logic is simple, there's nothing wrong with doing it in the controller. Moving it to a form request makes it less explicit.
+
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/**
+ * Get the validation rules that apply to the request.
+ *
+ * @return array
+ */
+public function rules()
+{
+  return [
+    'title' => 'required|unique:posts|max:255',
+    'body'  => 'required',
+  ];
+}
+{% endhighlight %}
+
+{:start="10"}
+10. **Use events**
+
+Consider offloading some logic from controllers to events. For example, when creating models. The benefit is that creating these models will work the same everywhere (controllers, jobs, ...) and the controller has one less worry about the details of the DB schema.
+
+{% highlight php %}
+/* Bad */
+// Only works in this place & concerns it with
+// details that the model should care about.
+if (! isset($data['name'])) {
+  $data['name'] = $data['code'];
+}
+
+$conversion = Conversion::create($data);
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+$conversion = Conversion::create($data);
+
+// Model
+class ConversionGoal extends Model
+{
+  public static function booted()
+  {
+    static::creating(function (self $model) {
+      $model->name ??= $model->code;
+    });
+  }
+}
+{% endhighlight %}
+
+{:start="11"}
+11. **Extract methods**
+
+If some method is too long or complex, and it's hard to understand what exactly is happening, split the logic into multiple methods.
+
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+public function handle(Request $request, Closure $next)
+{
+  // We extracted 3 tong methods into separate methods.
+  $this->trackVisitor();
+  $this->trackCampaign();
+  $this->trackTrafficSource($request);
+
+  $response = $next($request);
+
+  $this->analytics->log($request);
+
+  return $response;
 }
 {% endhighlight %}

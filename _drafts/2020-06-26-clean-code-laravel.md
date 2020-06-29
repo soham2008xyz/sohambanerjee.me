@@ -606,3 +606,198 @@ trait HasStatuses
 25. **Create single-use Blade includes**
 
 Similar to single-use traits. This tactic is great when you have a very long template and you want to make it more manageable. There's nothing wrong with `@include`-ing headers and footers in layouts, or things like complex forms in page views.
+
+{:start="26"}
+26. **Import namespaces instead of using aliases**
+
+Sometimes you may have multiple classes with the same name. Rather than importing them with an alias, import the namespaces.
+
+{% highlight php %}
+/* Bad */
+use App\Types\Entries\Visit as VisitEntry;
+use App\Storage\Database\Models\Visit as VisitModel;
+
+class DatabaseStorage
+{
+  public function log(VisitEntry $visit)
+  {
+    $visitModel = VisitModel::create([
+      // ...
+    ]);
+  }
+}
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+use App\Types\Entries;
+use App\Storage\Database\Models;
+
+class DatabaseStorage
+{
+  public function log(Entries\Visit $visit)
+  {
+    $visitModel = Models\Visit::create([
+      // ...
+    ]);
+  }
+}
+{% endhighlight %}
+
+{:start="27"}
+27. **Create query scopes for complex `where()`s**
+
+Rather than writing complex `where()` clauses, create query scopes with expressive names. This will make your e.g. controllers have to know less about the database structure and your code will be cleaner.
+
+{% highlight php %}
+/* Bad */
+Order::whereHas('status', function ($status) {
+  return true$status->where('canceled', true);
+})->get();
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+Order::whereCanceled()->get();
+
+class Order extends Model
+{
+  public function scopeWhereCanceled(Builder $query)
+  {
+    return $query>whereHas('status', function ($status) {
+      return $status->where('canceled', true);
+    });
+  }
+}
+{% endhighlight %}
+
+{:start="28"}
+28. **Don't use model methods to retrieve data**
+
+If you want to retrieve some data from a model, create an accessor. Keep methods for things that _change_ the model in some way.
+
+{% highlight php %}
+/* Bad */
+$user->gravatarUrl();
+
+class User extends Authenticable
+{
+  // ...
+
+  public function gravatarUrl()
+  {
+    return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->email)));
+  }
+}
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+Suser->gravatar_url;
+
+class User extends Authenticable
+{
+  // ...
+
+  public function getGravatarUrlAttribute()
+  {
+    return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->email)));
+  }
+}
+{% endhighlight %}
+
+{:start="29"}
+29. **Use custom config files**
+
+You can store things like "results per page" in config files. Don't add them to the app config file though. Create your own. e.g. In an e-commerce project, you can use `config/shop.php`.
+
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+// config/shop.php
+return [
+  'vat rates' => [
+    0.21,
+    0.15,
+    0.10,
+    0.0,
+  ],
+  'fee_vat_rate' => 0.21,
+
+  'image_sizes' => [
+    'base' => 500, // detail
+    't1'   => 250, // index
+    't2'   => 50,  // search
+  ],
+];
+{% endhighlight %}
+
+{:start="30"}
+30. **Don't use a controller namespace**
+
+Instead of writing controller actions like `PostController@index`, use the callable array syntax `[PostController::class, 'index']`. You will be able to navigate to the class by clicking `PostController`.
+
+{% highlight php %}
+/* Bad */
+Route::get('/posts', 'PostController@index');
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+Route::get('/posts', [PostController::class, 'index']);
+{% endhighlight %}
+
+{:start="31"}
+31. **Consider single-action controllers**
+
+If you have a complex route action, consider moving it to a separate controller. For `OrderController::create`, you'd create `CreateOrderController`. Another solution is to move that logic to an action class — do what works best in your case.
+
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+// We use class syntax from the tip above.
+Route::post('/orders/', CreateOrderController::class);
+
+class CreateOrderController
+{
+  public function _invoke(Request $request)
+  {
+    // ...
+  }
+}
+{% endhighlight %}
+
+{:start="32"}
+32. **Be friends with your IDE**
+
+Install extensions, write annotations, use typehints. Your IDE will help you with getting your code working correctly, which lets you spend more energy on writing code that's also readable.
+
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+$products = Product::with('options')->cursor();
+
+foreach ($products as $product) {
+  /** @var Product $product */
+  if ($product->options->isEmpty()) {
+    // ...
+  }
+}
+
+///////////////////////////
+
+foreach (Order::whereDoesntHave('invoice')->whereIn('id', $orders->pluck('id'))->get() as $order) {
+  /** @var Order $order */
+  $order->createInvoice();
+
+  // ...
+}
+
+///////////////////////////
+
+$productImage
+  ->help('Max 2 MB')
+  ->store(function (NovaRequest $request, ProductModel $product) {
+    /** @var UploadedFile $image */
+    $image = $request->image;
+
+    // ...
+  });
+{% endhighlight %}

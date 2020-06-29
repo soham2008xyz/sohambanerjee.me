@@ -41,7 +41,6 @@
               {% capture ordinalSup %}<sup>{{ ordinal }}</sup>{% endcapture %}
               {% capture ordinalDay %}{{ day | append: ordinalSup }}{% endcapture %}
               <i class="fa fa-calendar-o"></i>&nbsp;
-              <!--<time datetime="{{ page.date | date: "%F %R" }}">{{ page.date | date_to_long_string }}</time>-->
               <time datetime="{{ post.date | date_to_long_string }}">{{ ordinalDay }} {{ page.date | date: "%B %Y" }}</time>
               <br class="visible-small">
               <div class="reading-time">

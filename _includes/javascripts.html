@@ -4,126 +4,105 @@
 <script type="text/javascript" src="https://cdn.rawgit.com/michael-lynch/reading-time/master/build/readingtime.min.js"></script>
 <script type="text/javascript">
   var disqus_shortname = 'sohambanerjee-me';
-  
+
   // This is run once the counts.js file is loaded, but before the count-data.js files are loaded.
   function disqus_counts_loaded() {
     DISQUSWIDGETS.old_displayCount = DISQUSWIDGETS.displayCount;
-    
+
     // Override the old displayCount() with a new one so we can attach our helper onto it.
-    DISQUSWIDGETS.displayCount = function(arg) {
+    DISQUSWIDGETS.displayCount = function (arg) {
       DISQUSWIDGETS.old_displayCount(arg);
       $("a[href$=#disqus_thread], [data-disqus-url]").trigger('disqus-counts-loaded');
       // $('.disqus-count').css('display', 'inline-block');
     }
   }
-  
+
   $.getScript('https://' + disqus_shortname + '.disqus.com/count.js', disqus_counts_loaded);
-  $('.disqus-comment-count').on('disqus-counts-loaded', function() {
+  $('.disqus-comment-count').on('disqus-counts-loaded', function () {
     if($(this).text() !== "") {
       $(this).parent('.disqus-count').css('display', 'inline-block');
     }
   });
 </script>
-<!--<script id="dsq-count-scr" src="https://sohambanerjee-me.disqus.com/count.js" async></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-  <script type="text/javascript" src="https://cdn.rawgit.com/binarymind/jquery-navigate/master/navigate.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      $.navigate.init();
-    });
-  </script>-->
-  <!--<script src="https://cdn.rawgit.com/soham2008xyz/457f3384c95c5a5d910b983cdbc315a1/raw/fc37b6568fe42e1f36b718350eeb9d07ab791f41/smooth-scrollbar.js"></script>
-    <script src="https://cdn.rawgit.com/soham2008xyz/457f3384c95c5a5d910b983cdbc315a1/raw/fc37b6568fe42e1f36b718350eeb9d07ab791f41/overscroll.js"></script>
-    <script>
-      var Scrollbar = window.Scrollbar;
-      
-      Scrollbar.use(window.OverscrollPlugin);
-      Scrollbar.init(document.querySelector('html'), {
-        plugins: {
-          overscroll: true,
+<script>
+  (function ($) {
+    "use strict";
+    $(document).ready(function () {
+
+      var $window = $(window),
+      $image = $('.post-image-image, .teaserimage-image');
+
+      $window.on('scroll', function () {
+        var top = $window.scrollTop();
+
+        if (top < 0 || top > 1500) { return; }
+        $image
+        .css('transform', 'translate3d(0px, '+top/3+'px, 0px)')
+        .css('opacity', 1-Math.max(top/700, 0));
+      });
+      $window.trigger('scroll');
+
+      // var height = $('.article-image').height();
+      // $('.post-content').css('padding-top', height + 'px');
+
+      $('a[href*=#]:not([href=#])').click(function () {
+        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+        && location.hostname == this.hostname) {
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+          if (target.length) {
+            $('html,body').animate({ scrollTop: target.offset().top }, 500);
+            return false;
+          }
         }
       });
-    </script>-->
-    <script>
-      (function ($) {
-        "use strict";
-        $(document).ready(function(){
-          
-          var $window = $(window),
-          $image = $('.post-image-image, .teaserimage-image');
-          
-          $window.on('scroll', function() {
-            var top = $window.scrollTop();
-            
-            if (top < 0 || top > 1500) { return; }
-            $image
-            .css('transform', 'translate3d(0px, '+top/3+'px, 0px)')
-            .css('opacity', 1-Math.max(top/700, 0));
-          });
-          $window.trigger('scroll');
-          
-          // var height = $('.article-image').height();
-          // $('.post-content').css('padding-top', height + 'px');
-          
-          $('a[href*=#]:not([href=#])').click(function() {
-            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
-            && location.hostname == this.hostname) {
-              var target = $(this.hash);
-              target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-              if (target.length) {
-                $('html,body').animate({ scrollTop: target.offset().top }, 500);
-                return false;
-              }
-            }
-          });
-          
-        });
-      }(jQuery));
-    </script>
-    
-    <script>
-      if(window.homepage) {
-        $(document).ready(function () {
-          $('article').each(function () {
-            var _this = $(this);
-            
-            _this.readingTime({
-              readingTimeTarget: _this.find('.eta'),
-              wordCountTarget: _this.find('.words'),
-              remotePath: _this.find('[itemprop=url]').attr('href'),
-              remoteTarget: '.post-content',
-              wordsPerMinute: 180,
-              success: function (data) {
-                _this.find('.reading-time').css('display', 'inline-block');
-              },
-              error: function (data) {
-                console.log(data.error);
-                $('.reading-time').remove();
-              }        
-            });
-          });
-        });    
-      }
-    </script>
-    
-    <script>
-      if(window.single_post) {
-        // Calculates Reading Time
-        $('.post-content').readingTime({
-          readingTimeTarget: '.post-reading-time',
-          wordCountTarget: '.post-word-count',
+
+    });
+  }(jQuery));
+</script>
+
+<script>
+  if(window.homepage) {
+    $(document).ready(function () {
+      $('article').each(function () {
+        var _this = $(this);
+
+        _this.readingTime({
+          readingTimeTarget: _this.find('.eta'),
+          wordCountTarget: _this.find('.words'),
+          remotePath: _this.find('[itemprop=url]').attr('href'),
+          remoteTarget: '.post-content',
           wordsPerMinute: 180,
           success: function (data) {
-            $('.reading-time').css('display', 'inline-block');
+            _this.find('.reading-time').css('display', 'inline');
           },
           error: function (data) {
             console.log(data.error);
             $('.reading-time').remove();
           }
         });
+      });
+    });
+  }
+</script>
+
+<script>
+  if(window.single_post) {
+    // Calculates Reading Time
+    $('.post-content').readingTime({
+      readingTimeTarget: '.post-reading-time',
+      wordCountTarget: '.post-word-count',
+      wordsPerMinute: 180,
+      success: function (data) {
+        $('.reading-time').css('display', 'inline');
+      },
+      error: function (data) {
+        console.log(data.error);
+        $('.reading-time').remove();
       }
-    </script>
-    {% if site.google_analytics %}
-    {% include google_analytics.html %}
-    {% endif %}
-    
+    });
+  }
+</script>
+{% if site.google_analytics %}
+{% include google_analytics.html %}
+{% endif %}

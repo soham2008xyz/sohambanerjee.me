@@ -6,8 +6,6 @@ categories:
 tags: featured development laravel tutorials
 image: /assets/article_images/2020-06-26-clean-code-laravel/henri-l-CHt4BMi0-Is-unsplash.jpg
 image2: /assets/article_images/2020-06-26-clean-code-laravel/henri-l-CHt4BMi0-Is-unsplash-min.jpg
-excerpt:
-  In this post, I'll list tactics you can use to write cleaner code in Laravel. As you use them repeatedly, you'll develop a sense for what's good code and what's bad code. I'll also sprinkle some general Laravel code advice in between these tactics.
 ---
 I recently came across [this Twitter thread](http://samuelstancl.me/t/clean-code), where [@samuelstancl](https://twitter.com/samuelstancl) listed tips for writing cleaner code in Laravel, as well as some general Laravel coding advice. These are a great starting point to develop a sense for what's good code and what's bad code - so I collated them below (with code samples), in no particular order.
 
@@ -478,3 +476,133 @@ class Visit
   // ...
 }
 {% endhighlight %}
+
+{:start="19"}
+19. **Create fluent objects**
+
+You can also create objects with fluent APIs. Gradually add data by with separate calls, and only require the absolute minimum in the constructor. Each method will return `$this`, so you can stop at any call.
+
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+Visit::make($url, $routeName, $routeData)
+  ->withCampaign($campaign)
+  ->withTrafficSource($trafficSource)
+  ->withReferer($referer)
+  // ... etc
+{% endhighlight %}
+
+{:start="20"}
+20. **Use custom collections**
+
+Creating custom collections can be a great way to achieve more expressive syntax. Consider this example with order totals.
+
+{% highlight php %}
+/* Bad */
+$total = $order->products->sum(function (OrderProduct $product) {
+  return $product->price * $product->quantity * (1 + $product->vat_rate);
+});
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+$order->products->total();
+
+class OrderProductCollection extends Collection
+{
+  public function total()
+  {
+    $this->sum(function (OrderProduct $product) {
+      return $product->price * $product->quantity * (1 + $product->vat_rate);
+    });
+  }
+}
+{% endhighlight %}
+
+{:start="21"}
+21. **Don't use abbreviations**
+
+Don't think that long variable/method names are wrong. They're not. They're expressive. Better to call a longer method than a short one and check the docblock to understand what it does. Same with variables. Don't use nonsense 3-letters abbreviations.
+
+{% highlight php %}
+/* Bad */
+$ord = Order::create($data);
+
+// ...
+
+$ord->notify();
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+$order = Order::create($data);
+
+// ...
+
+$order->sendCreatedNotification();
+{% endhighlight %}
+
+{:start="22"}
+22. **Try to only use CRUD actions**
+
+If you can, only use the 7 CRUD actions in your controllers. Often even fewer. Don't create controllers with 20 methods. More shorter controllers is better.
+
+<iframe src="https://www.youtube.com/embed/MF0jFKvS4SI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+{:start="23" style="margin-top: 2em"}
+23. **Use expressive names for methods**
+
+Rather than thinking "what can this object do", think about "what can be done with this object". Exceptions apply, such as with action classes, but this is a good rule of thumb.
+
+<iframe src="https://www.youtube.com/embed/dfgtKb-VpRk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+{:style="margin-top: 1em"}
+{% highlight php %}
+/* Bad */
+$gardener->water($plant);
+
+$orderManager->lock($order);
+{% endhighlight %}
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+/* Good */
+$plant->water();
+
+$order->lock();
+{% endhighlight %}
+
+{:start="24"}
+24. **Create single-use traits**
+
+Adding methods to classes where they belong is cleaner than creating action classes for everything, but it can make the classes grow big. Consider using traits. They're meant _primarily_ for code reuse, but there's nothing wrong with single-use traits.
+
+{:style="margin-bottom: 2em"}
+{% highlight php %}
+class Order extends Model
+{
+  use HasStatuses;
+
+  // ...
+}
+
+trait HasStatuses
+{
+  public static function bootHasStatuses() { ... }
+  public static $statusMap = [ ... ];
+  public static $paymentStatusMap = [ ... ];
+  public static function getStatusId($status) { ... }
+  public static function getPaymentStatusId($status): string { ... }
+  public function statuses() { ... }
+  public function payment_statuses() { ... }
+  public function getStatusAttribute(): OrderStatusModel { ... }
+  public function getPaymentStatusAttribute(): OrderPaymentStatus { ... }
+  public function pushStatus($status, string $message = null, bool $notification = null) { ... }
+  public function pushPaymentStatus($status, string $note = null) { ... }
+  public function status(): OrderStatus { ... }
+  public function paymentStatus(): PaymentStatus { ... }
+}
+{% endhighlight %}
+
+{:start="25"}
+25. **Create single-use Blade includes**
+
+Similar to single-use traits. This tactic is great when you have a very long template and you want to make it more manageable. There's nothing wrong with `@include`-ing headers and footers in layouts, or things like complex forms in page views.

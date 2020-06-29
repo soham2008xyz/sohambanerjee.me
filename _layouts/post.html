@@ -57,9 +57,8 @@
                 <i class="fa fa-comments-o"></i>&nbsp;
                 <span class="disqus-comment-count" data-disqus-url="{{ page.url | prepend: site.baseurl | prepend: site.url }}"></span>
               </div>
-              {% comment %}
-              tagged on {% for slug in page.tags %}<span class="post-tag-{{ slug }}">{% unless forloop.first %}, {% endunless %}<a href="/tag/{{ slug }}">{{ slug }}</a></span>{% endfor %}
-              {% endcomment %}
+              <br>
+              {% for slug in page.tags %}<span class="post-tag post-tag-{{ slug }}">{{ slug }}</span>{% endfor %}
             </div>
             <div style="text-align:center">
               <a href="#topofpage" class="topofpage"><i class="fa fa-angle-down animated pulse infinite"></i></a>

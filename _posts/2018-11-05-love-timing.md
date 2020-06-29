@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Of love and timing, or lack thereof
+title: Of love and timing
 date: 2018-11-05 13:56:25
 categories:
 tags: relationships ramblings

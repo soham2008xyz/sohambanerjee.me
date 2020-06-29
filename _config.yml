@@ -21,6 +21,7 @@ author: 'Soham Banerjee'
 author_image: "/assets/images/author-min.jpg"
 
 paginate: 5
+permalink: /:year/:month/:day/:title/
 
 url: "https://sohambanerjee.me" # the base hostname & protocol for your site
 baseurl: ""

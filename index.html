@@ -66,7 +66,6 @@ layout: default
           {% capture ordinalSup %}<sup>{{ ordinal }}</sup>{% endcapture %}
           {% capture ordinalDay %}{{ day | append: ordinalSup }}{% endcapture %}
           <i class="fa fa-calendar-o"></i>&nbsp;
-          <!--<time datetime="{{ post.date | date_to_long_string }}">{{ post.date | date_to_long_string }}</time>-->
           <time datetime="{{ post.date | date_to_long_string }}">{{ ordinalDay }} {{ post.date | date: "%B %Y" }}</time>
           <div class="disqus-count">
             &nbsp;&nbsp;·&nbsp;&nbsp;
@@ -82,9 +81,7 @@ layout: default
             <i class="fa fa-clock-o"></i>&nbsp;
             <span class="eta"></span> read
           </div>
-          {% comment %}
-          <span class="post-tags-set">tagged on {% for slug in post.tags %}<span class="post-tag-{{ slug }}">{% unless forloop.first %}, {% endunless %}<a href="/tag/{{ slug }}">{{ slug }}</a></span>{% endfor %}</span>
-          {% endcomment %}
+          <div class="post-tags-set">{% for slug in post.tags %}<span class="post-tag post-tag-{{ slug }}">{{ slug }}</span>{% endfor %}</div>
         </div>
       </div>
     </article>
@@ -125,7 +122,6 @@ layout: default
           {% capture ordinalSup %}<sup>{{ ordinal }}</sup>{% endcapture %}
           {% capture ordinalDay %}{{ day | append: ordinalSup }}{% endcapture %}
           <i class="fa fa-calendar-o"></i>&nbsp;
-          <!--<time datetime="{{ post.date | date_to_long_string }}">{{ post.date | date_to_long_string }}</time>-->
           <time datetime="{{ post.date | date_to_long_string }}">{{ ordinalDay }} {{ post.date | date: "%B %Y" }}</time>
           <div class="disqus-count">
             &nbsp;&nbsp;·&nbsp;&nbsp;
@@ -141,9 +137,7 @@ layout: default
             <i class="fa fa-clock-o"></i>&nbsp;
             <span class="eta"></span> read
           </div>
-          {% comment %}
-          <span class="post-tags-set">tagged on {% for slug in page.tags %}<span class="post-tag-{{ slug }}">{% unless forloop.first %}, {% endunless %}<a href="/tag/{{ slug }}">{{ slug }}</a></span>{% endfor %}</span>
-          {% endcomment %}
+          <div class="post-tags-set">{% for slug in post.tags %}<span class="post-tag post-tag-{{ slug }}">{{ slug }}</span>{% endfor %}</div>
         </div>
       </div>
     </article>

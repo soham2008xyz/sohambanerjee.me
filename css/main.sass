@@ -12,7 +12,13 @@ $rs: 16px
 
 $font-serif: Linux Libertine, Georgia, "Times New Roman", serif
 $font-sans: Open Sans, MundoSans, "Helvetica Neue", Arial, Helvetica, sans-serif
+$font-mono: "JetBrains Mono", "Bitstream Vera Sans Mono", Consolas, Courier, monospace
 
+@font-face
+  font-family: 'JetBrains Mono'
+  src: url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/web/eot/JetBrainsMono-Regular.eot') format('embedded-opentype'), url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/web/woff2/JetBrainsMono-Regular.woff2') format('woff2'), url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/web/woff/JetBrainsMono-Regular.woff') format('woff'), url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/ttf/JetBrainsMono-Regular.ttf') format('truetype')
+  font-weight: normal
+  font-style: normal
 
 @mixin respond-to($breakpoint)
   @media only screen and (max-width: $breakpoint + px)
@@ -680,6 +686,10 @@ code
 
 code
   padding: 1px 5px
+  -webkit-font-feature-settings: "liga" on, "calt" on
+  -webkit-font-smoothing: antialiased
+  text-rendering: optimizeLegibility
+  font-family: $font-mono
 
 pre
   padding: 8px 12px

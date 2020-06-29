@@ -31,7 +31,7 @@ layout: default
 
 <main class="content" role="main">
 
-  {% if site.tags.featured %}
+  {% if site.tags.featured and paginator.page == 1 %}
   <h4 class="index-headline featured"><span>Featured Posts</span></h4>
 
   <div class="container featured">

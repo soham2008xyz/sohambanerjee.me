@@ -3,7 +3,7 @@ layout: post
 title: "Of new year resolutions (and lack thereof)"
 date: 2017-12-31 15:12:29
 categories:
-tags:
+tags: personal
 image: /assets/article_images/2017-12-31-new-year-resolutions/photo-1435527173128-983b87201f4d-min.jpg
 image2: /assets/article_images/2017-12-31-new-year-resolutions/photo-1435527173128-983b87201f4d-min.jpg
 ---

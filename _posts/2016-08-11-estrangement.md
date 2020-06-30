@@ -3,7 +3,7 @@ layout: post
 title: Estrangement
 date: 2016-08-11 01:12:27
 categories:
-tags: relationships ramblings
+tags: relationships personal
 image: /assets/article_images/2016-08-11-estrangement/post-bg.jpg
 image2: /assets/article_images/2016-08-11-estrangement/post-bg-min.jpg
 ---

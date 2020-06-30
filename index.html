@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 <div class="teaserimage">
   <div class="teaserimage-image" {% if site.cover %}style="background-image: url({{ site.cover | prepend: site.baseurl }})"{% endif %}>
     Teaser Image
@@ -30,7 +29,6 @@ layout: default
 </header>
 
 <main class="content" role="main">
-
   {% if site.tags.featured and paginator.page == 1 %}
   <h4 class="index-headline featured"><span>Featured Posts</span></h4>
 

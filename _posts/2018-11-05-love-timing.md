@@ -3,7 +3,7 @@ layout: post
 title: Of love and timing
 date: 2018-11-05 13:56:25
 categories:
-tags: relationships ramblings
+tags: relationships personal
 image: /assets/article_images/2018-11-05-love-timing/alexander-slash-reYDl88Nah0-unsplash.jpg
 image2: /assets/article_images/2018-11-05-love-timing/alexander-slash-reYDl88Nah0-unsplash-min.jpg
 excerpt:

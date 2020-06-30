@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Death of a Unicorn"
-date:   2017-09-18 17:45:34
+title: "Death of a Unicorn"
+date: 2017-09-18 17:45:34
 categories:
 tags: featured startups ramblings
 image: /assets/article_images/2017-09-18-death-of-a-unicorn/uber-min.jpg

@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Inspiration"
-date:   2016-10-30 03:34:25
+title: "Inspiration"
+date: 2016-10-30 03:34:25
 categories:
 tags: featured ramblings
 image: /assets/article_images/2016-10-30-inspiration/greg-rakozy-53292-unsplash-min.jpg

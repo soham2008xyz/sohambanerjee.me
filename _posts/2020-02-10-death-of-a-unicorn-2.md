@@ -6,6 +6,8 @@ categories:
 tags: featured startups ramblings
 image: /assets/article_images/2020-02-10-death-of-a-unicorn-2/5ddc2c15fd9db2398e265eed.jpeg
 image2: /assets/article_images/2020-02-10-death-of-a-unicorn-2/5ddc2c15fd9db2398e265eed.jpeg
+excerpt:
+  India is a growing market for food consumption. Uber Eats has significantly ramped up, with engaging ad campaigns having leading celebrities. Uber Eats does 1/3rd of Swiggy orders, yet the company is being sold for 1/10th of Swiggy's valuation. Why would Uber sell Eats cheaply after a significant long-term investment in a promising market, just to "cut short-term losses"?
 ---
 _This article is an in-spirit continuation of the [previous one](/2017/09/18/death-of-a-unicorn/)._
 

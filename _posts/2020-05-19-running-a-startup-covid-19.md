@@ -3,7 +3,7 @@ layout: post
 title: Running a startup in the times of Covid-19
 date: 2020-05-19 19:18:01
 categories:
-tags: startups entrepreneurship ramblings
+tags: featured startups entrepreneurship
 image: /assets/article_images/2020-05-19-running-a-startup-covid-19/daria-nepriakhina-xY55bL5mZAM-unsplash.jpg
 image2: /assets/article_images/2020-05-19-running-a-startup-covid-19/daria-nepriakhina-xY55bL5mZAM-unsplash-min.jpg
 excerpt:

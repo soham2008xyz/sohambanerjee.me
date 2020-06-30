@@ -19,7 +19,7 @@ Using some "macro" philosophy for structuring your code, like hexagonal architec
 Instead of writing repetitive `else if` statements, use an array to look up the wanted value based on the key you have. The code will be cleaner & more readable and you will see understandable exceptions if something goes wrong. No half-passing edge cases.
 
 {% highlight php %}
-// Bad
+// ❌
 if ($order->product->option->type === 'pdf') {
     $type = 'book';
 } else if ($order->product->option->type === 'epub') {
@@ -46,7 +46,7 @@ if ($type === 'book') {
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 $type = [
     'pdf'      => 'book',
     'epub'     => 'book',
@@ -70,7 +70,7 @@ $downloadable = [
 Try to avoid unnecessary nesting by returning a value early. Too much nesting & else statements tend to make code harder to read.
 
 {% highlight php %}
-// Bad
+// ❌
 if ($notificationSent) {
   $notify = false;
 } else if ($isActive) {
@@ -91,7 +91,7 @@ return $notify;
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 if ($notificationSent) {
   return false;
 }
@@ -113,7 +113,7 @@ return false;
 Don't split lines at random places, but don't make them too long either. Opening an array with `[` and indenting the values tends to work well. Same with long function parameter values. Other good places to split lines are chained calls and closures.
 
 {% highlight php %}
-// Bad
+// ❌
 // No line split
 return $this->request->session()->get($this->config->get('analytics.campaign_session_key'));
 
@@ -123,7 +123,7 @@ return $this->request
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 return $this->request->session()->get(
   $this->config->get('analytics.campaign_session_key')
 );
@@ -146,7 +146,7 @@ $this->validate($request, [
 Don't create variables when you can just pass the value directly.
 
 {% highlight php %}
-// Bad
+// ❌
 public function create()
 {
   $data = [
@@ -159,7 +159,7 @@ public function create()
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 public function create()
 {
   return $this->inertia('Resource/Create', [
@@ -175,7 +175,7 @@ public function create()
 The opposite of the previous tip. Sometimes the value comes from a complex call and as such, creating a variable improves readability & removes the need for a comment. Remember that context matters & your end goal is readability.
 
 {% highlight php %}
-// Bad
+// ❌
 Visit::create([
   'url' => $visit->url,
   'referer' => $visit->referer,
@@ -186,7 +186,7 @@ Visit::create([
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 $visit = Visit::create([
   'url'       => $visit->url,
   'referer'   => $visit->referer,
@@ -204,7 +204,7 @@ $visit->conversion_goals()->attach($conversionData);
 Your controllers should be simple. They should say things like "create invoice for order". They shouldn't be concerned with the details of how your database is structured. Leave that to the model.
 
 {% highlight php %}
-// Bad
+// ❌
 // Create invoice for order
 DB::transaction(function () use ($order) {
   Sinvoice = $order->invoice()->create();
@@ -216,7 +216,7 @@ DB::transaction(function () use ($order) {
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 $order->createInvoice();
 {% endhighlight %}
 
@@ -226,7 +226,7 @@ $order->createInvoice();
 Let's expand on the previous example. Sometimes, creating a class for a single action can clean things up. Models should encapsulate the business logic related to them, but they shouldn't be too big.
 
 {% highlight php %}
-// Bad
+// ❌
 public function createInvoice(): Invoice
 {
   if ($this->invoice()->exists()) {
@@ -244,7 +244,7 @@ public function createInvoice(): Invoice
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 // Order model
 public function createInvoice(): Invoice {
   if ($this->invoice()->exists()) {
@@ -297,9 +297,8 @@ public function rules()
 Consider offloading some logic from controllers to events. For example, when creating models. The benefit is that creating these models will work the same everywhere (controllers, jobs, ...) and the controller has one less worry about the details of the DB schema.
 
 {% highlight php %}
-// Bad
-// Only works in this place & concerns it with
-// details that the model should care about.
+// ❌
+// Only works in this place & concerns it with details that the model should care about.
 if (! isset($data['name'])) {
   $data['name'] = $data['code'];
 }
@@ -308,7 +307,7 @@ $conversion = Conversion::create($data);
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 $conversion = Conversion::create($data);
 
 // Model
@@ -370,7 +369,7 @@ function html2text($html = ''): string
 Sometimes people put helpers into a class. Beware, it can get messy. This is a class with only static methods used as helper functions. It's usually better to put these methods into classes with related logic or just keep them as global functions.
 
 {% highlight php %}
-// Bad
+// ❌
 class Helper
 {
   public function convertCurrency(Money $money, string $currency): self
@@ -391,7 +390,7 @@ Helper::convertCurrency($total, 'EUR');
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 class Money
 {
   // the other money/currency logic
@@ -443,7 +442,7 @@ Below are two tactics for the fixing second case.
 Rather than passing a huge amount of arguments in a specific order, consider creating an object with properties to store this data. Bonus points if you can find that some behavior can be moved into to this object.
 
 {% highlight php %}
-// Bad
+// ❌
 public function log($url, $route_name, $route_data, $campaign_code, $traffic_source, $referer, $user_id, $visitor_id, $ip, $timestamp)
 {
   // ...
@@ -451,7 +450,7 @@ public function log($url, $route_name, $route_data, $campaign_code, $traffic_sou
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 public function log(Visit $visit)
 {
   // ...
@@ -497,14 +496,14 @@ Visit::make($url, $routeName, $routeData)
 Creating custom collections can be a great way to achieve more expressive syntax. Consider this example with order totals.
 
 {% highlight php %}
-// Bad
+// ❌
 $total = $order->products->sum(function (OrderProduct $product) {
   return $product->price * $product->quantity * (1 + $product->vat_rate);
 });
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 $order->products->total();
 
 class OrderProductCollection extends Collection
@@ -524,7 +523,7 @@ class OrderProductCollection extends Collection
 Don't think that long variable/method names are wrong. They're not. They're expressive. Better to call a longer method than a short one and check the docblock to understand what it does. Same with variables. Don't use nonsense 3-letters abbreviations.
 
 {% highlight php %}
-// Bad
+// ❌
 $ord = Order::create($data);
 
 // ...
@@ -533,7 +532,7 @@ $ord->notify();
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 $order = Order::create($data);
 
 // ...
@@ -557,14 +556,14 @@ Rather than thinking "what can this object do", think about "what can be done wi
 
 {:style="margin-top: 1em"}
 {% highlight php %}
-// Bad
+// ❌
 $gardener->water($plant);
 
 $orderManager->lock($order);
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 $plant->water();
 
 $order->lock();
@@ -613,7 +612,7 @@ Similar to single-use traits. This tactic is great when you have a very long tem
 Sometimes you may have multiple classes with the same name. Rather than importing them with an alias, import the namespaces.
 
 {% highlight php %}
-// Bad
+// ❌
 use App\Types\Entries\Visit as VisitEntry;
 use App\Storage\Database\Models\Visit as VisitModel;
 
@@ -629,7 +628,7 @@ class DatabaseStorage
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 use App\Types\Entries;
 use App\Storage\Database\Models;
 
@@ -650,14 +649,14 @@ class DatabaseStorage
 Rather than writing complex `where()` clauses, create query scopes with expressive names. This will make your e.g. controllers have to know less about the database structure and your code will be cleaner.
 
 {% highlight php %}
-// Bad
+// ❌
 Order::whereHas('status', function ($status) {
   return true$status->where('canceled', true);
 })->get();
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 Order::whereCanceled()->get();
 
 class Order extends Model
@@ -677,7 +676,7 @@ class Order extends Model
 If you want to retrieve some data from a model, create an accessor. Keep methods for things that _change_ the model in some way.
 
 {% highlight php %}
-// Bad
+// ❌
 $user->gravatarUrl();
 
 class User extends Authenticable
@@ -692,7 +691,7 @@ class User extends Authenticable
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 Suser->gravatar_url;
 
 class User extends Authenticable
@@ -737,12 +736,12 @@ return [
 Instead of writing controller actions like `PostController@index`, use the callable array syntax `[PostController::class, 'index']`. You will be able to navigate to the class by clicking `PostController`.
 
 {% highlight php %}
-// Bad
+// ❌
 Route::get('/posts', 'PostController@index');
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 Route::get('/posts', [PostController::class, 'index']);
 {% endhighlight %}
 
@@ -808,7 +807,7 @@ $productImage
 PHP has many great operators that can replace ugly `if` checks. Memorize them.
 
 {% highlight php %}
-// Bad
+// ❌
 // truthy test
 if (! $foo) {
   $foo = 'bar';
@@ -826,7 +825,7 @@ if (! isset($foo)) {
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 // truthy test
 $foo = $foo ?: 'bar';
 
@@ -852,12 +851,12 @@ Above you can see that I use space between `!` and the value I'm negating. I lik
 Consider using helpers instead of facades. They can clean things up. This is largely a matter of personal preference, but calling a global function instead of having to import a class and statically call a method feels nicer to me. Bonus points for `session('key')` syntax.
 
 {% highlight php %}
-// Bad
+// ❌
 Cache::get('foo');
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 cache()->get('foo');
 // Better
 cache('foo');
@@ -869,7 +868,7 @@ cache('foo');
 You can make your Blade templates more expressive by creating custom directives. For example, rather than checking if the user has the admin role, you could use `@admin`.
 
 {% highlight php %}
-// Bad
+// ❌
 @if(auth()->user()->hasRole('admin'))
   // ...
 @else
@@ -878,7 +877,7 @@ You can make your Blade templates more expressive by creating custom directives.
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 @admin
   // ...
 @else
@@ -892,14 +891,14 @@ You can make your Blade templates more expressive by creating custom directives.
 Sometimes you may want to execute DB queries in blade. There are some ok use cases for this, such as in layout files. But if it's a view returned by a controller, pass the data in the view data instead.
 
 {% highlight php %}
-// Bad
+// ❌
 @foreach(Product::where('enabled', false)->get() as $product)
   // ...
 @endforeach
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 // Controller
 return view('foo', [
   'disabledProducts' => Product::where('enabled', false)->get(),
@@ -917,12 +916,12 @@ return view('foo', [
 ALWAYS use strict comparison (`===` and `!==`). If needed, cast things go the correct type before comparing. Better than weird `==` results. Also consider enabling strict types in your code. This will prevent passing variables of wrong data types to functions.
 
 {% highlight php %}
-// Bad
+// ❌
 $foo == 'bar';
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 $foo === 'bar';
 // Better
 declare(strict_types=1);
@@ -934,7 +933,7 @@ declare(strict_types=1);
 Many people will disagree with this, because they do it. But it makes no sense. There's no point in using docblocks when they don't give any extra information. If the typehint is enough, don't add a docblock. That's just noise.
 
 {% highlight php %}
-// Bad
+// ❌
 // No types at all
 function add_5($foo)
 {
@@ -955,7 +954,7 @@ function add_5(int $foo): int
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 // Everything is clear without a docblock
 function add_5(int $foo)
 {
@@ -1025,7 +1024,7 @@ $collection->firstWhere('age', '>=', 18);
 Functional code can both clean things up and make them impossible to understand. Refactor common loops into functional calls, but don't write stupidly complex reduce()s just to avoid writing a loop. There's a use case for both.
 
 {% highlight php %}
-// Bad
+// ❌
 return array_unique(array_reduce($keywords, function ($result, $keyword) {
   return array_merge($result, array_reduce($this->variantGenerators, function ($result2, $generator) use ($keyword) {
     return array_merge($result2, array_map(function ($variant) {
@@ -1036,7 +1035,7 @@ return array_unique(array_reduce($keywords, function ($result, $keyword) {
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 return $this->items()->reduce(function (Money $sum, OrderItem $item) {
   return $sum->addMoney($item->subtotal());
 }, money(0, $this->currency));
@@ -1053,10 +1052,12 @@ Before writing a comment, ask yourself if you could rename some things or create
 Above I said that moving business logic to action/service classes is good. But context matters. Here's code design advice from a popular "Laravel best practices" repo. There's absolutely no reason to put a 3-line check into a class. That's just overengineered.
 
 {% highlight php %}
-// Bad
+// ❌
 public function store(Request $request)
 {
   $this->articleService->handleUploadedImage($request->file('image'));
+
+  // ...
 }
 
 class ArticleService
@@ -1071,7 +1072,7 @@ class ArticleService
 {% endhighlight %}
 {:style="margin-bottom: 2em"}
 {% highlight php %}
-// Good
+// ✅
 public function store(Request $request)
 {
   if ($request->hasFile('image')) {

@@ -56,3 +56,10 @@ social:
     share_url:
     share_title:
     share_link:
+
+  - icon: whatsapp
+    url:
+    desc:
+    share_url: https://api.whatsapp.com/send
+    share_title: ?text=
+    share_link: "&#43;"

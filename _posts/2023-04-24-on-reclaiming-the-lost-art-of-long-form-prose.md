@@ -5,7 +5,7 @@ date: 2023-04-24 11:57:14
 categories:
 tags: featured writing personal
 image: /assets/article_images/2023-04-24-on-reclaiming-the-lost-art-of-long-form-prose/post-bg.jpg
-image2: /assets/article_images/2023-04-24-on-reclaiming-the-lost-art-of-long-form-prose/post-bg.jpg
+image2: /assets/article_images/2023-04-24-on-reclaiming-the-lost-art-of-long-form-prose/post-bg2.jpg
 excerpt:
   Whatever happened to long-form prose? In this era of social media, where status updates and 140-character tweets dominate our attention spans, the art of writing at length seems to be fading into obscurity. It's a trend that's been happening for years, as brevity has become the preferred mode of communication in the digital age. In a world where we are constantly bombarded with information and distractions, it's no wonder that we have little time or patience for long-form writing. We have become accustomed to quick and easy information, and the idea of sitting down to read a novel or a lengthy essay can seem daunting. But in our rush to consume information in bite-sized pieces, we are losing something important. We are losing the ability to immerse ourselves in a story, to become fully invested in a character's journey, or to explore complex ideas in depth.
 ---

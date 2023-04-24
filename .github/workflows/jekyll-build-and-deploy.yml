@@ -42,21 +42,11 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
-      - name: Run Lighthouse CI
-        run: |
-          npm install -g @lhci/cli
-          lhci autorun
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v1
@@ -72,3 +62,23 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+
+  test:
+    runs-on: ubuntu-latest
+    needs: deploy
+    strategy:
+      fail-fast: false
+      matrix:
+        device: [ 'desktop', 'mobile' ]
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+      - name: Run Lighthouse CI
+        run: lhci autorun --upload.target=temporary-public-storage --collect.method=psi --collect.url=${{ steps.deployment.outputs.page_url }} --collect.psiApiKey=${{ secrets.PSI_API_KEY }} --collect.psiStrategy=${{matrix.device}}
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

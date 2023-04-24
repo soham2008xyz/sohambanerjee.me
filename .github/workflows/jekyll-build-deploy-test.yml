@@ -62,6 +62,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
 
   test:
     runs-on: ubuntu-latest
@@ -78,6 +80,6 @@ jobs:
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli
       - name: Run Lighthouse CI
-        run: lhci autorun --upload.target=temporary-public-storage --collect.method=psi --collect.url=${{ steps.deployment.outputs.page_url }} --collect.psiApiKey=${{ secrets.PSI_API_KEY }} --collect.psiStrategy=${{matrix.device}}
+        run: lhci autorun --upload.target=temporary-public-storage --collect.method=psi --collect.url=${{ needs.deploy.outputs.page_url }} --collect.psiApiKey=${{ secrets.PSI_API_KEY }} --collect.psiStrategy=${{ matrix.device }}
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

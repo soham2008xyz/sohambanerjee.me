@@ -50,6 +50,8 @@ jobs:
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v1
+    outputs:
+      sha: ${{ env.GITHUB_SHA }}
 
   # Deployment job
   deploy:
@@ -64,6 +66,7 @@ jobs:
         uses: actions/deploy-pages@v2
     outputs:
       page_url: ${{ steps.deployment.outputs.page_url }}
+      sha: ${{ needs.build.outputs.sha }}
 
   test:
     runs-on: ubuntu-latest
@@ -83,4 +86,4 @@ jobs:
         run: lhci autorun --upload.target=temporary-public-storage --collect.method=psi --collect.url=${{ needs.deploy.outputs.page_url }} --collect.psiApiKey=${{ secrets.PSI_API_KEY }} --collect.psiStrategy=${{ matrix.device }}
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ env.GITHUB_SHA }}
+          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ needs.deploy.outputs.sha }}

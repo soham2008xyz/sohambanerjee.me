@@ -74,7 +74,7 @@ jobs:
   surge:
     environment:
       name: surge
-      url: ${{ env.SURGE_DOMAIN }}
+      url: ${{ vars.SURGE_DOMAIN }}
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -86,12 +86,12 @@ jobs:
       - name: Deploy to Surge
         uses: dswistowski/surge-sh-action@v1
         with:
-          domain: ${{ env.SURGE_DOMAIN }}
+          domain: ${{ vars.SURGE_DOMAIN }}
           project: _site/
           login: ${{ secrets.SURGE_LOGIN }}
           token: ${{ secrets.SURGE_TOKEN }}
     outputs:
-      page_url: ${{ env.SURGE_DOMAIN }}
+      page_url: ${{ vars.SURGE_DOMAIN }}
 
   # Run lighthouse checks
   test:

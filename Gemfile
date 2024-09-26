@@ -6,5 +6,5 @@ gem 'jekyll-sitemap'
 gem 'jekyll-paginate'
 gem 'bourbon'
 gem 'jemoji'
-gem 'webrick'
+gem 'webrick', '>= 1.8.2'
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?

@@ -39,7 +39,7 @@ That's a much bigger ask than it sounds. Here's what it actually means, in pract
 
 That's a lot. And honestly, I'm sure I'm still forgetting a few things.
 
-But this is what it takes to build for clients as a small team. At Renderbit, we don't have a dedicated QA department sitting between us and production, and most of our engineers work directly with clients rather than through a layer of product managers translating requirements back and forth. That's not a gap to apologize for - it's the model. It means everyone on the team has to genuinely own the full arc of a problem, not just the part that shows up in their ticket.
+But this is what it takes to build for clients as a small team. At [Renderbit](https://www.renderbit.com/about-us/), we don't have a dedicated QA department sitting between us and production, and most of our engineers work directly with clients rather than through a layer of product managers translating requirements back and forth. That's not a gap to apologize for - it's the model. It means everyone on the team has to genuinely own the full arc of a problem, not just the part that shows up in their ticket.
 
 And to be clear, owning something doesn't mean going it alone. It's always okay to ask for help, to ask "dumb" questions, to redo something twice because the first version didn't sit right with you. What's not okay is quietly assuming someone else has already thought about the part you didn't feel like thinking about.
 

@@ -4,6 +4,8 @@ title: "On ownership"
 date: 2026-07-08 09:42:00
 categories:
 tags: featured startups engineering leadership
+image: /assets/article_images/2026-07-08-on-ownership/post-bg.jpg
+image2: /assets/article_images/2026-07-08-on-ownership/post-bg2.jpg
 excerpt: >
   "Can you own this?" is a question I ask my team more often than almost any other. But I realized recently that I use the word "ownership" constantly without ever really unpacking what it means to me. So here it is - what I actually expect when I ask someone to own something, and why, in a small team building for real clients, there is no one else who is going to think about it if you don't.
 ---

@@ -365,6 +365,8 @@ body
       color: rgba(255,255,255,0.75)
       &:hover
         color: #fff
+    .pulse
+      animation: pulse-bounce 2s infinite
     .topofpage
       text-decoration: underline
   .noarticleimage
@@ -717,3 +719,11 @@ pre
 
   &:first-of-type
     margin-left: 0
+
+@keyframes pulse-bounce
+  0%, 100%
+    transform: scale(1)
+    opacity: 1
+  50%
+    transform: scale(1.2)
+    opacity: 0.6

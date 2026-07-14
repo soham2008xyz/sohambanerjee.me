@@ -62,20 +62,20 @@ layout: default
           {% endif %}
           {% capture ordinalSup %}<sup>{{ ordinal }}</sup>{% endcapture %}
           {% capture ordinalDay %}{{ day | append: ordinalSup }}{% endcapture %}
-          <i class="fa fa-calendar-o"></i>&nbsp;
+          <i class="fa-regular fa-calendar"></i>&nbsp;
           <time datetime="{{ post.date | date_to_long_string }}">{{ ordinalDay }} {{ post.date | date: "%B %Y" }}</time>
           <div class="disqus-count">
             &nbsp;&nbsp;·&nbsp;&nbsp;
-            <i class="fa fa-comments-o"></i>&nbsp;
+            <i class="fa-regular fa-comment"></i>&nbsp;
             <span class="disqus-comment-count" data-disqus-url="{{ post.url | prepend: site.baseurl | prepend: site.url }}"></span>
           </div>
           <br class="visible-small">
           <div class="reading-time">
             <span class="hidden-small">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
-            <i class="fa fa-file-text-o"></i>&nbsp;
+            <i class="fa-regular fa-file-lines"></i>&nbsp;
             <span class="words"></span> words
             &nbsp;&nbsp;·&nbsp;&nbsp;
-            <i class="fa fa-clock-o"></i>&nbsp;
+            <i class="fa-regular fa-clock"></i>&nbsp;
             <span class="eta"></span> read
           </div>
           <div class="post-tags-set">{% for slug in post.tags %}<span class="post-tag post-tag-{{ slug }}">{{ slug }}</span>{% endfor %}</div>
@@ -118,20 +118,20 @@ layout: default
           {% endif %}
           {% capture ordinalSup %}<sup>{{ ordinal }}</sup>{% endcapture %}
           {% capture ordinalDay %}{{ day | append: ordinalSup }}{% endcapture %}
-          <i class="fa fa-calendar-o"></i>&nbsp;
+          <i class="fa-regular fa-calendar"></i>&nbsp;
           <time datetime="{{ post.date | date_to_long_string }}">{{ ordinalDay }} {{ post.date | date: "%B %Y" }}</time>
           <div class="disqus-count">
             &nbsp;&nbsp;·&nbsp;&nbsp;
-            <i class="fa fa-comments-o"></i>&nbsp;
+            <i class="fa-regular fa-comment"></i>&nbsp;
             <span class="disqus-comment-count" data-disqus-url="{{ post.url | prepend: site.baseurl | prepend: site.url }}"></span>
           </div>
           <br class="visible-small">
           <div class="reading-time">
             <span class="hidden-small">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
-            <i class="fa fa-file-text-o"></i>&nbsp;
+            <i class="fa-regular fa-file-lines"></i>&nbsp;
             <span class="words"></span> words
             &nbsp;&nbsp;·&nbsp;&nbsp;
-            <i class="fa fa-clock-o"></i>&nbsp;
+            <i class="fa-regular fa-clock"></i>&nbsp;
             <span class="eta"></span> read
           </div>
           <div class="post-tags-set">{% for slug in post.tags %}<span class="post-tag post-tag-{{ slug }}">{{ slug }}</span>{% endfor %}</div>

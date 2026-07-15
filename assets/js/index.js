@@ -20,16 +20,40 @@
       }
     });
 
+    // Wrap embeds (iframe/object/embed) in .post-content so they scale
+    // responsively, matching the removed jQuery fitVids plugin's behavior
+    document.querySelectorAll(".post-content iframe, .post-content object, .post-content embed").forEach(function (embed) {
+      if (embed.closest(".fluid-width-video-wrapper")) return;
+      var width = parseInt(embed.getAttribute("width"), 10) || embed.offsetWidth || 1;
+      var height = parseInt(embed.getAttribute("height"), 10) || embed.offsetHeight || 1;
+      var wrapper = document.createElement("div");
+      wrapper.className = "fluid-width-video-wrapper";
+      wrapper.style.paddingTop = ((height / width) * 100) + "%";
+      embed.parentNode.insertBefore(wrapper, embed);
+      wrapper.appendChild(embed);
+      embed.removeAttribute("height");
+      embed.removeAttribute("width");
+    });
+
     // Parallax on header images
     var images = document.querySelectorAll(".post-image-image, .teaserimage-image");
     if (images.length) {
-      var onScroll = function () {
-        var top = window.pageYOffset || document.documentElement.scrollTop;
-        if (top < 0 || top > 1500) return;
+      var ticking = false;
+      var top = 0;
+      var updateParallax = function () {
         images.forEach(function (image) {
           image.style.transform = "translate3d(0px, " + top / 3 + "px, 0px)";
           image.style.opacity = String(1 - Math.max(top / 700, 0));
         });
+        ticking = false;
+      };
+      var onScroll = function () {
+        top = window.pageYOffset || document.documentElement.scrollTop;
+        if (top < 0 || top > 1500) return;
+        if (!ticking) {
+          window.requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
       };
       window.addEventListener("scroll", onScroll, { passive: true });
       onScroll();

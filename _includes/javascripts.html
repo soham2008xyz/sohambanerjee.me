@@ -1,107 +1,76 @@
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="{{ "/assets/js/jquery.fitvids.js" | prepend: site.baseurl  }}"></script>
 <script type="text/javascript" src="{{ "/assets/js/index.js" | prepend: site.baseurl  }}"></script>
-<script type="text/javascript" src="https://cdn.rawgit.com/michael-lynch/reading-time/master/build/readingtime.min.js"></script>
 <script type="text/javascript">
-  var disqus_shortname = 'sohambanerjee-me';
-
-  // This is run once the counts.js file is loaded, but before the count-data.js files are loaded.
-  function disqus_counts_loaded() {
-    DISQUSWIDGETS.old_displayCount = DISQUSWIDGETS.displayCount;
-
-    // Override the old displayCount() with a new one so we can attach our helper onto it.
-    DISQUSWIDGETS.displayCount = function (arg) {
-      DISQUSWIDGETS.old_displayCount(arg);
-      $("a[href$=#disqus_thread], [data-disqus-url]").trigger('disqus-counts-loaded');
-      // $('.disqus-count').css('display', 'inline-block');
-    }
-  }
-
-  $.getScript('https://' + disqus_shortname + '.disqus.com/count.js', disqus_counts_loaded);
-  $('.disqus-comment-count').on('disqus-counts-loaded', function () {
-    if($(this).text() !== "") {
-      $(this).parent('.disqus-count').css('display', 'inline-block');
-    }
-  });
-</script>
-<script>
-  (function ($) {
+  (function () {
     "use strict";
-    $(document).ready(function () {
 
-      var $window = $(window),
-      $image = $('.post-image-image, .teaserimage-image');
+    // Disqus comment counts
+    var disqus_shortname = 'sohambanerjee-me';
 
-      $window.on('scroll', function () {
-        var top = $window.scrollTop();
-
-        if (top < 0 || top > 1500) { return; }
-        $image
-        .css('transform', 'translate3d(0px, '+top/3+'px, 0px)')
-        .css('opacity', 1-Math.max(top/700, 0));
-      });
-      $window.trigger('scroll');
-
-      // var height = $('.article-image').height();
-      // $('.post-content').css('padding-top', height + 'px');
-
-      $('a[href*=#]:not([href=#])').click(function () {
-        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
-        && location.hostname == this.hostname) {
-          var target = $(this.hash);
-          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-          if (target.length) {
-            $('html,body').animate({ scrollTop: target.offset().top }, 500);
-            return false;
-          }
-        }
-      });
-
-    });
-  }(jQuery));
-</script>
-
-<script>
-  if(window.homepage) {
-    $(document).ready(function () {
-      $('article').each(function () {
-        var _this = $(this);
-
-        _this.readingTime({
-          readingTimeTarget: _this.find('.eta'),
-          wordCountTarget: _this.find('.words'),
-          remotePath: _this.find('[itemprop=url]').attr('href'),
-          remoteTarget: '.post-content',
-          wordsPerMinute: 180,
-          success: function (data) {
-            _this.find('.reading-time').css('display', 'inline');
-          },
-          error: function (data) {
-            console.log(data.error);
-            $('.reading-time').remove();
+    function disqusCountsLoaded() {
+      var widgets = window.DISQUSWIDGETS;
+      if (!widgets || !widgets.displayCount) return;
+      // Disqus populates .disqus-comment-count asynchronously after this
+      // script loads, so wrap displayCount to reveal counts once it actually
+      // renders them rather than checking too early.
+      var originalDisplayCount = widgets.displayCount;
+      widgets.displayCount = function (arg) {
+        originalDisplayCount(arg);
+        Array.prototype.forEach.call(document.querySelectorAll('.disqus-comment-count'), function (el) {
+          if (el.textContent.trim() !== '') {
+            var parent = el.closest('.disqus-count');
+            if (parent) parent.style.display = 'inline-block';
           }
         });
-      });
-    });
-  }
-</script>
+      };
+    }
 
-<script>
-  if(window.single_post) {
-    // Calculates Reading Time
-    $('.post-content').readingTime({
-      readingTimeTarget: '.post-reading-time',
-      wordCountTarget: '.post-word-count',
-      wordsPerMinute: 180,
-      success: function (data) {
-        $('.reading-time').css('display', 'inline');
-      },
-      error: function (data) {
-        console.log(data.error);
-        $('.reading-time').remove();
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
+    s.onload = disqusCountsLoaded;
+    document.head.appendChild(s);
+
+    // Reading time: words/180 wpm, using a word count Jekyll renders into
+    // data-word-count (homepage teasers only have a truncated excerpt in
+    // the DOM, not the full post body, so it can't be computed client-side).
+    function fillReadingTime(readingTime) {
+      var words = parseInt(readingTime.getAttribute('data-word-count'), 10) || 0;
+      if (words === 0) return false;
+      var minutes = Math.max(1, Math.round(words / 180));
+      var wordsTarget = readingTime.querySelector('.words, .post-word-count');
+      var timeTarget = readingTime.querySelector('.eta, .post-reading-time');
+      if (wordsTarget) wordsTarget.textContent = words.toLocaleString();
+      if (timeTarget) timeTarget.textContent = minutes + ' min';
+      return true;
+    }
+
+    function showReadingTime(scope) {
+      var readingTime = scope.querySelector('.reading-time');
+      if (!readingTime) return;
+      if (fillReadingTime(readingTime)) {
+        readingTime.style.display = 'inline';
+      } else {
+        readingTime.remove();
       }
-    });
-  }
+    }
+
+    function init() {
+      if (window.homepage) {
+        document.querySelectorAll('article').forEach(function (article) {
+          showReadingTime(article);
+        });
+      }
+      if (window.single_post) {
+        showReadingTime(document);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
 </script>
 {% if site.google_analytics %}
 {% include google_analytics.html %}

@@ -32,7 +32,9 @@ twitter_handle: '@nonconformism'
 # fill in disqus shortname to use disqus
 disqus: sohambanerjee-me
 
-google_analytics: UA-117145487-1
+# Google Analytics 4 measurement ID (format G-XXXXXXXXXX).
+# Uncomment and set your real GA4 ID from the GA dashboard to enable analytics.
+# google_analytics: "G-XXXXXXXXXX"
 
 # social icons and sharing options
 social:

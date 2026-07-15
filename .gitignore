@@ -1,4 +1,5 @@
 _site/
+vendor/bundle
 .sass-cache/
 .DS_Store
 .vscode/

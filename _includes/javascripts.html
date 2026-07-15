@@ -9,7 +9,6 @@
     function disqusCountsLoaded() {
       var widgets = window.DISQUSWIDGETS;
       if (!widgets) return;
-      var counts = widgets.getCount ? widgets.getCount() : [];
       Array.prototype.forEach.call(document.querySelectorAll('.disqus-comment-count'), function (el) {
         if (el.textContent.trim() !== '') {
           var parent = el.closest('.disqus-count');

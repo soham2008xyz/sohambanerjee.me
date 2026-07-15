@@ -41,14 +41,40 @@
 
     function showReadingTime(scope) {
       var readingTime = scope.querySelector('.reading-time');
-      if (fillReadingTime(
-            scope.querySelector('.post-content'),
-            scope.querySelector('.words, .post-word-count'),
-            scope.querySelector('.eta, .post-reading-time'))) {
-        if (readingTime) readingTime.style.display = 'inline';
-      } else if (readingTime) {
-        readingTime.remove();
+      var wordsTarget = scope.querySelector('.words, .post-word-count');
+      var timeTarget = scope.querySelector('.eta, .post-reading-time');
+      var localContent = scope.querySelector('.post-content');
+
+      if (localContent) {
+        if (fillReadingTime(localContent, wordsTarget, timeTarget)) {
+          if (readingTime) readingTime.style.display = 'inline';
+        } else if (readingTime) {
+          readingTime.remove();
+        }
+        return;
       }
+
+      // Homepage teasers only render a truncated excerpt locally, so fetch
+      // the full post to compute an accurate word count/reading time.
+      var permalink = scope.querySelector('[itemprop=url]');
+      if (!permalink) {
+        if (readingTime) readingTime.remove();
+        return;
+      }
+
+      fetch(permalink.href)
+        .then(function (response) { return response.text(); })
+        .then(function (html) {
+          var remoteContent = new DOMParser().parseFromString(html, 'text/html').querySelector('.post-content');
+          if (fillReadingTime(remoteContent, wordsTarget, timeTarget)) {
+            if (readingTime) readingTime.style.display = 'inline';
+          } else if (readingTime) {
+            readingTime.remove();
+          }
+        })
+        .catch(function () {
+          if (readingTime) readingTime.remove();
+        });
     }
 
     function init() {

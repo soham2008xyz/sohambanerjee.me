@@ -71,6 +71,7 @@ syntax, which renders broken now that only FA6's `all.min.css` loads (no v4 shim
 - [index.html:20](index.html:20) — `<i class="fa fa-{{ social.icon }}"></i>` (header social loop)
 
 Fix:
+
 - The two static icons → mirror `footer.html` exactly: `fa-solid fa-heart`, `fa-solid fa-rss`.
 - The three dynamic `{{ social.icon }}` occurrences → `fa-brands fa-{{ social.icon }}`
   (correct today since all four `site.social` icons are brand icons; **known

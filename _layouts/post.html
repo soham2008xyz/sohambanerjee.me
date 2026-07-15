@@ -171,11 +171,9 @@
             // The callback can also be used for any other analytics service like Parse.ly, Chartbeat, Mixpanel
             var disqus_config = function() {
               this.callbacks.onNewComment = [function(comment) {
-                ga('send', {
-                  'hitType': 'event',            // Required.
-                  'eventCategory': 'Comments',   // Required.
-                  'eventAction': 'New Comment',  // Required.
-                  'eventLabel': 'New Comment'
+                gtag('event', 'comment', {
+                  'event_category': 'Comments',
+                  'event_label': 'New Comment'
                 });
               }];
             };

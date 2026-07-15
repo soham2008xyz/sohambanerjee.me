@@ -56,21 +56,42 @@
     (function () {
       "use strict";
 
-      var bar = document.createElement('div');
-      bar.className = 'pace pace-active';
-      var prog = document.createElement('div');
-      prog.className = 'pace-progress';
-      bar.appendChild(prog);
-      document.documentElement.appendChild(bar);
+      var prog;
+      var ticking = false;
+      var pct = 0;
+
+      function draw() {
+        prog.style.transform = 'scaleX(' + pct + ')';
+        ticking = false;
+      }
+
       function update() {
         var root = document.documentElement;
         var max = root.scrollHeight - root.clientHeight;
-        var pct = max > 0 ? root.scrollTop / max : 0;
-        prog.style.transform = 'scaleX(' + pct + ')';
+        pct = max > 0 ? root.scrollTop / max : 0;
+        if (!ticking) {
+          window.requestAnimationFrame(draw);
+          ticking = true;
+        }
       }
-      window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
-      update();
+
+      function init() {
+        var bar = document.createElement('div');
+        bar.className = 'pace pace-active';
+        prog = document.createElement('div');
+        prog.className = 'pace-progress';
+        bar.appendChild(prog);
+        document.body.appendChild(bar);
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        update();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
     })();
   </script>
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}"/>

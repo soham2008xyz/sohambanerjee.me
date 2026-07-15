@@ -70,7 +70,7 @@ layout: default
             <span class="disqus-comment-count" data-disqus-url="{{ post.url | prepend: site.baseurl | prepend: site.url }}"></span>
           </div>
           <br class="visible-small">
-          <div class="reading-time">
+          <div class="reading-time" data-word-count="{{ post.content | strip_html | number_of_words }}">
             <span class="hidden-small">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
             <i class="fa-regular fa-file-lines"></i>&nbsp;
             <span class="words"></span> words
@@ -126,7 +126,7 @@ layout: default
             <span class="disqus-comment-count" data-disqus-url="{{ post.url | prepend: site.baseurl | prepend: site.url }}"></span>
           </div>
           <br class="visible-small">
-          <div class="reading-time">
+          <div class="reading-time" data-word-count="{{ post.content | strip_html | number_of_words }}">
             <span class="hidden-small">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
             <i class="fa-regular fa-file-lines"></i>&nbsp;
             <span class="words"></span> words

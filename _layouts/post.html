@@ -43,7 +43,7 @@
               <i class="fa-regular fa-calendar"></i>&nbsp;
               <time datetime="{{ post.date | date_to_long_string }}">{{ ordinalDay }} {{ page.date | date: "%B %Y" }}</time>
               <br class="visible-small">
-              <div class="reading-time">
+              <div class="reading-time" data-word-count="{{ content | strip_html | number_of_words }}">
                 <span class="hidden-small">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
                 <i class="fa-regular fa-file-lines"></i>&nbsp;
                 <span class="post-word-count"></span> words

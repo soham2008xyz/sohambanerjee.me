@@ -8,13 +8,20 @@
 
     function disqusCountsLoaded() {
       var widgets = window.DISQUSWIDGETS;
-      if (!widgets) return;
-      Array.prototype.forEach.call(document.querySelectorAll('.disqus-comment-count'), function (el) {
-        if (el.textContent.trim() !== '') {
-          var parent = el.closest('.disqus-count');
-          if (parent) parent.style.display = 'inline-block';
-        }
-      });
+      if (!widgets || !widgets.displayCount) return;
+      // Disqus populates .disqus-comment-count asynchronously after this
+      // script loads, so wrap displayCount to reveal counts once it actually
+      // renders them rather than checking too early.
+      var originalDisplayCount = widgets.displayCount;
+      widgets.displayCount = function (arg) {
+        originalDisplayCount(arg);
+        Array.prototype.forEach.call(document.querySelectorAll('.disqus-comment-count'), function (el) {
+          if (el.textContent.trim() !== '') {
+            var parent = el.closest('.disqus-count');
+            if (parent) parent.style.display = 'inline-block';
+          }
+        });
+      };
     }
 
     var s = document.createElement('script');
@@ -23,58 +30,28 @@
     s.onload = disqusCountsLoaded;
     document.head.appendChild(s);
 
-    // Reading time: words/180 wpm, displayed when computed
-    function countWords(text) {
-      var matches = text.trim().match(/\S+/g);
-      return matches ? matches.length : 0;
-    }
-
-    function fillReadingTime(content, wordsTarget, timeTarget) {
-      if (!content) return false;
-      var words = countWords(content.textContent);
+    // Reading time: words/180 wpm, using a word count Jekyll renders into
+    // data-word-count (homepage teasers only have a truncated excerpt in
+    // the DOM, not the full post body, so it can't be computed client-side).
+    function fillReadingTime(readingTime) {
+      var words = parseInt(readingTime.getAttribute('data-word-count'), 10) || 0;
       if (words === 0) return false;
       var minutes = Math.max(1, Math.round(words / 180));
+      var wordsTarget = readingTime.querySelector('.words, .post-word-count');
+      var timeTarget = readingTime.querySelector('.eta, .post-reading-time');
       if (wordsTarget) wordsTarget.textContent = words.toLocaleString();
-      if (timeTarget) timeTarget.textContent = minutes;
+      if (timeTarget) timeTarget.textContent = minutes + ' min';
       return true;
     }
 
     function showReadingTime(scope) {
       var readingTime = scope.querySelector('.reading-time');
-      var wordsTarget = scope.querySelector('.words, .post-word-count');
-      var timeTarget = scope.querySelector('.eta, .post-reading-time');
-      var localContent = scope.querySelector('.post-content');
-
-      if (localContent) {
-        if (fillReadingTime(localContent, wordsTarget, timeTarget)) {
-          if (readingTime) readingTime.style.display = 'inline';
-        } else if (readingTime) {
-          readingTime.remove();
-        }
-        return;
+      if (!readingTime) return;
+      if (fillReadingTime(readingTime)) {
+        readingTime.style.display = 'inline';
+      } else {
+        readingTime.remove();
       }
-
-      // Homepage teasers only render a truncated excerpt locally, so fetch
-      // the full post to compute an accurate word count/reading time.
-      var permalink = scope.querySelector('[itemprop=url]');
-      if (!permalink) {
-        if (readingTime) readingTime.remove();
-        return;
-      }
-
-      fetch(permalink.href)
-        .then(function (response) { return response.text(); })
-        .then(function (html) {
-          var remoteContent = new DOMParser().parseFromString(html, 'text/html').querySelector('.post-content');
-          if (fillReadingTime(remoteContent, wordsTarget, timeTarget)) {
-            if (readingTime) readingTime.style.display = 'inline';
-          } else if (readingTime) {
-            readingTime.remove();
-          }
-        })
-        .catch(function () {
-          if (readingTime) readingTime.remove();
-        });
     }
 
     function init() {

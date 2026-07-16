@@ -1,0 +1,69 @@
+name: New Blog Post
+description: Draft or request a new blog post
+title: "[Post]: "
+labels: ["content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to propose or draft a new blog post.
+
+  - type: input
+    id: title
+    attributes:
+      label: Proposed Title
+      placeholder: e.g., Understanding Rust's Ownership Model
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: A brief overview of what the post will cover.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      multiple: false
+      options:
+        - Technology
+        - Programming
+        - Career
+        - Life / Philosophy
+        - Tutorial
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: outline
+    attributes:
+      label: Outline / Key Points
+      description: Bullet points or a rough outline of the post's structure.
+      placeholder: |
+        - Introduction
+        - Main concept 1
+        - Main concept 2
+        - Conclusion
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References / Resources
+      description: Links, articles, or resources you plan to reference.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: ready
+    attributes:
+      label: Status
+      options:
+        - label: I'm ready to write this post
+        - label: I'd like someone else to write it

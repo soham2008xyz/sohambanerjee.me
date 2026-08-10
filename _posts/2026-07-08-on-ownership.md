@@ -13,11 +13,11 @@ I say the word "ownership" a lot. To my team, to new hires, in one-on-ones, prob
 
 That's a much bigger ask than it sounds. Here's what it actually means, in practice.
 
-**Think about what the problem actually is.** It is very easy to walk in with a solution already in your head - "we need to migrate from X to Y" - without ever asking what we are actually trying to solve. That's not a problem, that's a solution wearing a disguise. The real problem is usually something like "this is slow," "this breaks for one specific client," "this isn't stable under load." Once you have the real problem, there are usually several ways to solve it. What are the tradeoffs? Given those tradeoffs, what's actually the best call?
+**Think about what the problem actually is.** It is very easy to walk in with a solution already in your head - "we need to migrate from X to Y" - without ever asking what we are actually trying to solve. The real problem is usually something like "this is slow," "this breaks for one specific client," "this isn't stable under load." Once you have the real problem, there are usually several ways to solve it. What are the tradeoffs? Given those tradeoffs, what's actually the best call?
 
 **Think about the edges.** What are the edge cases here? Which ones matter, and which ones are we consciously choosing to ignore for now?
 
-**Think about failure.** Networks fail. APIs time out. Third-party services go down at 2am. How do we handle that - retry? How many times, and with what backoff?
+**Think about failure.** Networks fail. APIs time out. Third-party services go down at 2 AM. How do we handle that - retry? How many times, and with what backoff?
 
 **Think about the data.** How much of it is there? Does anything need to be migrated or cleaned up first? What assumptions am I making about the shape of this data that I haven't actually verified?
 
@@ -37,7 +37,7 @@ That's a much bigger ask than it sounds. Here's what it actually means, in pract
 
 **Follow up.** Check the logs a few days later. Did it actually hold up, or did something quietly regress?
 
-That's a lot. And honestly, I'm sure I'm still forgetting a few things.
+That's a lot. And honestly, it's far from comprehensive.
 
 But this is what it takes to build for clients as a small team. At [Renderbit](https://www.renderbit.com/about-us/), we don't have a dedicated QA department sitting between us and production, and most of our engineers work directly with clients rather than through a layer of product managers translating requirements back and forth. That's not a gap to apologize for - it's the model. It means everyone on the team has to genuinely own the full arc of a problem, not just the part that shows up in their ticket.
 

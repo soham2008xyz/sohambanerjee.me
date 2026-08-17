@@ -65,3 +65,6 @@ social:
     share_url: https://api.whatsapp.com/send
     share_title: ?text=
     share_link: "&#43;"
+
+exclude:
+  - AGENTS.md

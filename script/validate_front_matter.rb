@@ -15,7 +15,9 @@ def front_matter(path)
   return nil unless content.start_with?('---')
 
   _, raw, _ = content.split(/^---\s*$/, 3)
-  YAML.safe_load(raw, permitted_classes: [Time, Date], aliases: true) || {}
+  return nil if raw.nil?
+
+  YAML.safe_load(raw, permitted_classes: [Time, Date]) || {}
 end
 
 errors = []
@@ -29,7 +31,7 @@ Dir.glob('_posts/*.md').sort.each do |path|
   end
 
   REQUIRED_KEYS.each do |key|
-    next if data.key?(key) && (data[key] != nil || KEYS_ALLOWING_BLANK_VALUE.include?(key))
+    next if data.key?(key) && (!data[key].nil? || KEYS_ALLOWING_BLANK_VALUE.include?(key))
 
     errors << "#{path}: missing required front matter key '#{key}'"
   end

@@ -68,4 +68,5 @@ social:
 
 exclude:
   - AGENTS.md
+  - README.md
   - vendor/

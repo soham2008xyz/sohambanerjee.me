@@ -68,3 +68,4 @@ social:
 
 exclude:
   - AGENTS.md
+  - vendor/

@@ -3,12 +3,18 @@
 ## Build and validation commands
 
 - Install gems: `bundle install`
+- Install lint tooling: `npm install`
 - Run the site locally: `bundle exec jekyll serve`
 - Build the production output into `_site/`: `bundle exec jekyll build`
-- There is no local lint, typecheck, or test suite in this repo.
-- There is no single-test command. After changing content, layouts, includes, or styles, use `bundle exec jekyll build` as the local verification step.
+- Run the full local check suite: `bundle exec rake test`
+- Run a single front-matter check: `bundle exec rake test:frontmatter`
+- Run html-proofer against a built site: `bundle exec rake test:html`
+- Run CSS lint: `npm run lint:css`
+- Run JS lint: `npm run lint:js`
+- Node is dev-only here; the site still builds with Jekyll/Ruby, and `css/main.sass` is validated by Jekyll rather than stylelint.
+- `HTMLPROOFER_EXTERNAL=1 bundle exec rake test:html` includes external links; by default html-proofer skips them.
 - Bundler is configured to install gems into `vendor/bundle` via `.bundle/config`. If a local build starts reading `vendor/bundle/.../site_template/_posts`, treat that as an environment issue with the vendored gems path inside the repo rather than a content error in the site itself.
-- CI runs only on `master`: build the site, deploy to GitHub Pages and Surge, then run Lighthouse against the deployed Surge URL.
+- CI runs on `master`: `lint` (front matter, Sass, JS) and `build` (Jekyll build + html-proofer) gate `deploy` and `surge`, then `test` runs Lighthouse against the deployed Surge URL.
 
 ## High-level architecture
 
@@ -20,6 +26,7 @@
 - `index.html` is its own homepage template. It renders a featured-post section from `site.tags.featured` and a separate paginated list for all posts.
 - Styling compiles from the indented-syntax entrypoint `css/main.sass`, which imports partials from `_sass/` and uses Bourbon mixins.
 - Client-side behavior is light and mostly wired through `_includes/javascripts.html`: it loads the site JS, reveals Disqus comment counts, and computes reading-time UI from Liquid-rendered `data-word-count` attributes.
+- `assets/js/index.js` is vanilla JavaScript and handles image wrappers, responsive embeds, parallax on hero images, and same-page smooth scrolling.
 
 ## Key repository conventions
 
@@ -32,7 +39,10 @@
 - Drafts belong in `_drafts/` and do not use the date prefix.
 - Top-level content pages such as `about.md` and `contact.md` use `layout: page` plus an explicit `permalink`.
 - Keep styles in the existing Sass style: edit `css/main.sass` or `_sass/` partials using indented Sass syntax, not SCSS braces.
+- `npm run lint:css` only checks `_sass/*.scss`; `css/main.sass` stays unlinted because the indented-Sass parser used by stylelint does not handle its nested rules well.
 - Google Analytics is gated by `_config.yml`. `_includes/google_analytics.html` exists, but nothing is rendered unless `site.google_analytics` is set.
 - Disqus is enabled site-wide through the configured shortname and is referenced in both the post layout and shared JS.
 - Font Awesome 6 naming is already in use (`fa-solid`, `fa-regular`, `fa-brands`).
+- The image compression workflow only triggers on pushed `.jpg`, `.jpeg`, `.png`, and `.webp` files.
+- CodeQL currently analyzes `javascript` and `ruby` on pushes and pull requests to `master`.
 - `.gitlab-ci.yml` is stale and should be ignored.

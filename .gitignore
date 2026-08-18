@@ -9,3 +9,6 @@ docs/codebase/
 
 # Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
+
+.claude/launch.json
+.claude/jekyll-serve.bat

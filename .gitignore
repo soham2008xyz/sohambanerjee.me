@@ -4,6 +4,7 @@ vendor/bundle
 .DS_Store
 .vscode/
 .impeccable/
+docs/codebase/
 
 # Ignore vscode AI rules
 .github/instructions/codacy.instructions.md

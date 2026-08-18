@@ -1,5 +1,3 @@
-require 'html-proofer'
-
 task :build do
   sh 'bundle exec jekyll build'
 end
@@ -12,6 +10,8 @@ namespace :test do
 
   desc 'Check an already-built _site/ for broken links, images, and missing alt text'
   task :html_only do
+    require 'html-proofer'
+
     HTMLProofer.check_directory(
       './_site',
       disable_external: ENV['HTMLPROOFER_EXTERNAL'] != '1'

@@ -3,6 +3,7 @@
 # documented in AGENTS.md, and that its image/image2 files exist on disk.
 
 require 'yaml'
+require 'date'
 
 # 'categories' is required by convention but is always left blank on this
 # blog (see AGENTS.md) - a blank key still counts as present.

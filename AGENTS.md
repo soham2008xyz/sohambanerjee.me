@@ -13,11 +13,15 @@ Personal blog (Jekyll) at sohambanerjee.me. GitHub Pages + Surge staging.
 
 ```bash
 bundle install            # install gems
+npm install                # install lint tooling (Node, dev-only - no build step)
 bundle exec jekyll serve  # local dev server (http://localhost:4000)
 bundle exec jekyll build  # build to _site/
+bundle exec rake test     # front matter validation + html-proofer (builds first)
+npm run lint:css          # stylelint on _sass/*.scss
+npm run lint:js           # eslint on assets/js/index.js
 ```
 
-No local lint, typecheck, or test suite. CI runs Lighthouse after deploy.
+Local checks: `rake test:frontmatter` validates required post front matter (see below) and that `image`/`image2` files exist; `rake test:html` builds the site and runs html-proofer against `_site/` for broken links, missing images, and missing alt text (external links are skipped by default - set `HTMLPROOFER_EXTERNAL=1` to include them). `npm run lint:css` covers the one live Sass partial, `_sass/_syntax-highlighting.scss`; `css/main.sass` (indented syntax) isn't linted - stylelint's only indented-Sass parser (`postcss-sass`) is unmaintained and crashes on this file's nested rules, so Jekyll's own Sass compiler (which fails the build on invalid Sass) is the correctness check for it instead. CI runs all of these in a `lint` job plus html-proofer in `build`, gating `deploy`/`surge`; Lighthouse still runs after deploy.
 
 ## Branch
 

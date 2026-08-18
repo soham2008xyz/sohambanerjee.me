@@ -3,7 +3,11 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-# Ensure Node matches .nvmrc for lint tooling when the base image does not already provide it
+if [ -d "$HOME/.rbenv" ]; then
+  export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
+  eval "$(rbenv init - bash)"
+fi
+
 if [ -f .nvmrc ]; then
   required_major="$(tr -d '[:space:]' < .nvmrc | cut -d. -f1)"
   current_major="$(node --version 2>/dev/null | sed 's/^v//' | cut -d. -f1 || true)"
@@ -19,6 +23,4 @@ if [ -f .nvmrc ]; then
   fi
 fi
 
-bundle config set --local path 'vendor/bundle'
-bundle install --jobs 4 --retry 3
-npm ci
+exec bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload

@@ -14,7 +14,7 @@
   "terminals": [
     {
       "name": "jekyll",
-      "command": "bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload",
+      "command": "bash .cursor/dev-server.sh",
       "description": "Jekyll development server at http://localhost:4000"
     }
   ]

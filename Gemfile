@@ -8,3 +8,8 @@ gem 'bourbon'
 gem 'jemoji'
 gem 'webrick', '>= 1.8.2'
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?
+
+group :test do
+  gem 'html-proofer'
+  gem 'rake'
+end

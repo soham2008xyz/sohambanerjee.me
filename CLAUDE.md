@@ -8,15 +8,19 @@ This repo also has an `AGENTS.md` with agent-oriented context (stack, commands, 
 
 ```bash
 bundle install            # install gems
+npm install                # install lint tooling (dev-only, doesn't affect the site build)
 bundle exec jekyll serve  # local dev server (http://localhost:4000)
 bundle exec jekyll build  # build to _site/
+bundle exec rake test     # front matter validation + html-proofer (builds first)
+npm run lint:css          # stylelint on _sass/*.scss
+npm run lint:js           # eslint on assets/js/index.js
 ```
 
-No lint, typecheck, or test suite exists locally. CI runs Lighthouse against the deployed site, not the build output.
+Local checks now exist (see `AGENTS.md` for details and the html-proofer / Sass-linting caveats). CI runs them in a `lint` job plus html-proofer in `build`, gating deploy; Lighthouse still runs post-deploy against the live site, not the build output.
 
 ## Architecture
 
-Static Jekyll blog (Ruby 3.2.3, Jekyll via the `github-pages` gem, no Node build step). Three layouts chain together in `_layouts/`:
+Static Jekyll blog (Ruby 3.2.3, Jekyll via the `github-pages` gem, no Node build step — Node is only used as a dev dependency for linting, see Commands above). Three layouts chain together in `_layouts/`:
 
 - `default.html` — base HTML shell, pulls in `_includes/head.html`, `_includes/header.html`, `_includes/footer.html`
 - `page.html` — extends default, used for static pages (`about.md`, `contact.md`)
@@ -26,7 +30,7 @@ Styling is SCSS (`_sass/`) compiled from a single Sass-syntax (indented, not SCS
 
 ### Deploy pipeline (`.github/workflows/jekyll-build-deploy-test.yml`)
 
-On push to `master`: `build` → fans out to `deploy` (GitHub Pages) and `surge` (Surge.sh staging) → `test` (Lighthouse CI via PSI, desktop + mobile, run against the Surge URL). Site is dual-hosted: production on GitHub Pages (custom domain via `CNAME`), staging mirror on Surge.
+On push to `master`: `lint` (front matter, Sass, JS) and `build` (Jekyll build + html-proofer) run in parallel → both gate `deploy` (GitHub Pages) and `surge` (Surge.sh staging) → `test` (Lighthouse CI via PSI, desktop + mobile, run against the Surge URL). Site is dual-hosted: production on GitHub Pages (custom domain via `CNAME`), staging mirror on Surge.
 
 Separate workflows: `codeql.yml` (security scanning) and `compress-images.yml` (auto-opens a PR when images are pushed).
 

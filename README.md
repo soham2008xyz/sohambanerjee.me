@@ -8,8 +8,6 @@
 
 <p align="center"><a href="https://sohambanerjee.me">sohambanerjee.me</a></p>
 
----
-
 A static Jekyll site with no Node.js build step. Styling is Sass (indented syntax) built on the [Bourbon](https://www.bourbon.io/) mixin/grid library, hosted on GitHub Pages with a Surge.sh staging mirror.
 
 ## Stack

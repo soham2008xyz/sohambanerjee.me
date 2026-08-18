@@ -68,5 +68,6 @@ social:
 
 exclude:
   - AGENTS.md
+  - CLAUDE.md
   - README.md
   - vendor/

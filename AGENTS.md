@@ -63,11 +63,15 @@ image2: /assets/article_images/YYYY-MM-DD-slug/hero.jpg
 
 ## Cloud Agent environment
 
-- Environment config: `.cursor/environment.json` (Ruby 3.2.6 + Node 24 via Dockerfile)
-- Bootstrap: `bash .cursor/install.sh` (runs `bundle install` and `npm ci`)
-- Dev server starts automatically in the `jekyll` terminal on port 4000
-- Source `source .cursor/env.sh` before interactive npm/Ruby commands if tool versions look wrong
-- Ruby version is pinned in `.ruby-version` (3.2.6); Node version in `.nvmrc` (24)
+- Cursor: `.cursor/environment.json` (Ruby 3.2.6 + Node 24 via Dockerfile)
+  - Bootstrap: `bash .cursor/install.sh` (runs `bundle install` and `npm ci`)
+  - Dev server starts automatically in the `jekyll` terminal on port 4000
+  - Source `source .cursor/env.sh` before interactive npm/Ruby commands if tool versions look wrong
+- Claude Code on the web: `.claude/hooks/session-start.sh`, registered as a `SessionStart` hook in `.claude/settings.json`
+  - Puts rbenv's shims (respecting `.ruby-version`) on `PATH` and sets `LANG=C.UTF-8` (the base image has no locale generated, which otherwise breaks reading UTF-8 post content) via `$CLAUDE_ENV_FILE`
+  - Runs `bundle install` (gems vendored to `vendor/bundle`) and `npm install`
+  - Only runs remotely (`$CLAUDE_CODE_REMOTE`), does nothing locally
+- Ruby version is pinned in `.ruby-version` (3.2.6); Node version in `.nvmrc` (24, Cursor only - Claude Code's web environment uses whatever Node is preinstalled)
 
 ## Gotchas
 

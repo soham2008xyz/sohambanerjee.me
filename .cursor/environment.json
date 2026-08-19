@@ -1,0 +1,21 @@
+{
+  "name": "The Nonconformist (Jekyll)",
+  "user": "ubuntu",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "install": "bash .cursor/install.sh",
+  "ports": [
+    {
+      "name": "jekyll",
+      "port": 4000
+    }
+  ],
+  "terminals": [
+    {
+      "name": "jekyll",
+      "command": "bash .cursor/dev-server.sh",
+      "description": "Jekyll development server at http://localhost:4000"
+    }
+  ]
+}

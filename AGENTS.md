@@ -61,6 +61,14 @@ image2: /assets/article_images/YYYY-MM-DD-slug/hero.jpg
 - Image compression PR opens automatically when images are pushed
 - Dependabot: weekly bundler + github-actions updates
 
+## Cloud Agent environment
+
+- Environment config: `.cursor/environment.json` (Ruby 3.2.6 + Node 24 via Dockerfile)
+- Bootstrap: `bash .cursor/install.sh` (runs `bundle install` and `npm ci`)
+- Dev server starts automatically in the `jekyll` terminal on port 4000
+- Source `source .cursor/env.sh` before interactive npm/Ruby commands if tool versions look wrong
+- Ruby version is pinned in `.ruby-version` (3.2.6); Node version in `.nvmrc` (24)
+
 ## Gotchas
 
 - Disqus comments enabled (shortname: `sohambanerjee-me`) - present in all post layouts

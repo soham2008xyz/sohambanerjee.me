@@ -10,7 +10,10 @@ if [ -f .nvmrc ]; then
   if [ "$current_major" != "$required_major" ]; then
     export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
     if [ ! -s "$NVM_DIR/nvm.sh" ]; then
-      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+      nvm_install_script="$(mktemp)"
+      curl -fsSL -o "$nvm_install_script" https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh
+      bash "$nvm_install_script"
+      rm -f "$nvm_install_script"
     fi
     # shellcheck source=/dev/null
     . "$NVM_DIR/nvm.sh"

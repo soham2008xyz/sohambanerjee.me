@@ -4,6 +4,7 @@ FROM ruby:3.2.6-bookworm
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# hadolint ignore=DL3008
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         git \
@@ -17,7 +18,7 @@ RUN apt-get update \
         libgdbm-dev \
         libncurses5-dev \
     && rm -rf /var/lib/apt/lists/* \
-    && gem install bundler --no-document
+    && gem install bundler:2.5.10 --no-document
 
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /usr/local/bin/npm /usr/local/bin/npm

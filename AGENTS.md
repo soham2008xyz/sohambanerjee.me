@@ -4,7 +4,7 @@ Personal blog (Jekyll) at sohambanerjee.me. GitHub Pages + Surge staging.
 
 ## Stack
 
-- Ruby 3.2.3, Jekyll 3.10.0, Bundler
+- Ruby 3.2.6, Jekyll 3.10.0, Bundler
 - SASS (`.scss`) with Bourbon library
 - Liquid templating
 - No Node.js build step
@@ -67,6 +67,9 @@ image2: /assets/article_images/YYYY-MM-DD-slug/hero.jpg
   - Bootstrap: `bash .cursor/install.sh` (runs `bundle install` and `npm ci`)
   - Dev server starts automatically in the `jekyll` terminal on port 4000
   - Source `source .cursor/env.sh` before interactive npm/Ruby commands if tool versions look wrong
+- GitHub Copilot cloud agent: `.github/workflows/copilot-setup-steps.yml`
+  - Checks out the repo, sets `LANG=C.UTF-8`, installs Ruby from `.ruby-version` with bundler cache, and installs Node from `.nvmrc` with npm cache
+  - Runs `npm ci`; `ruby/setup-ruby` handles `bundle install` via `bundler-cache: true`
 - Claude Code on the web: `.claude/hooks/session-start.sh`, registered as a `SessionStart` hook in `.claude/settings.json`
   - Puts rbenv's shims (respecting `.ruby-version`) on `PATH` and sets `LANG=C.UTF-8` (the base image has no locale generated, which otherwise breaks reading UTF-8 post content) via `$CLAUDE_ENV_FILE`
   - Runs `bundle install` (gems vendored to `vendor/bundle`) and `npm install`

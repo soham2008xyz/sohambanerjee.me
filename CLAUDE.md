@@ -20,7 +20,7 @@ Local checks now exist (see `AGENTS.md` for details and the html-proofer / Sass-
 
 ## Architecture
 
-Static Jekyll blog (Ruby 3.2.3, Jekyll via the `github-pages` gem, no Node build step — Node is only used as a dev dependency for linting, see Commands above). Three layouts chain together in `_layouts/`:
+Static Jekyll blog (Ruby 3.2.6, Jekyll via the `github-pages` gem, no Node build step — Node is only used as a dev dependency for linting, see Commands above). Three layouts chain together in `_layouts/`:
 
 - `default.html` — base HTML shell, pulls in `_includes/head.html`, `_includes/header.html`, `_includes/footer.html`
 - `page.html` — extends default, used for static pages (`about.md`, `contact.md`)
@@ -33,6 +33,8 @@ Styling is SCSS (`_sass/`) compiled from a single Sass-syntax (indented, not SCS
 On push to `master`: `lint` (front matter, Sass, JS) and `build` (Jekyll build + html-proofer) run in parallel → both gate `deploy` (GitHub Pages) and `surge` (Surge.sh staging) → `test` (Lighthouse CI via PSI, desktop + mobile, run against the Surge URL). Site is dual-hosted: production on GitHub Pages (custom domain via `CNAME`), staging mirror on Surge.
 
 Separate workflows: `codeql.yml` (security scanning) and `compress-images.yml` (auto-opens a PR when images are pushed).
+
+GitHub Copilot cloud agent uses `.github/workflows/copilot-setup-steps.yml` to preinstall the Ruby and Node toolchains plus project dependencies before agent sessions begin.
 
 ### Site config (`_config.yml`)
 

@@ -739,3 +739,108 @@ pre
     left: 0
     width: 100%
     height: 100%
+
+@media (prefers-color-scheme: dark)
+  body
+    background-color: #121212
+    color: #e8e8e8
+
+  .blog-header
+    .blog-logo
+      border-color: #121212
+      background-color: #121212
+      -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.5)
+      -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.5)
+      box-shadow: 0 1px 1px rgba(0,0,0,0.5)
+    .blog-title
+      color: #f1f1f1
+    .blog-description
+      color: #c7c7c7
+    .custom-links
+      color: #6f6f6f
+      a
+        color: #a8a8a8
+        &:hover
+          color: #f1f1f1
+
+  .content
+    article
+      border-bottom-color: #2b2b2b
+      .post-title
+        a
+          color: #f1f1f1
+      .post-excerpt
+        color: #c7c7c7
+      .post-meta
+        color: #8f8f8f
+        a
+          color: #8f8f8f
+
+  .index-headline
+    border-top-color: #353535
+    span
+      color: #8f8f8f
+
+  .pagination
+    a
+      color: #a8a8a8
+      &:hover
+        color: #f1f1f1
+
+  .post-reading
+    color: rgba(255,255,255,0.55)
+
+  .site-footer
+    color: #a8a8a8
+    a
+      color: #c7c7c7
+      &:hover
+        color: #f1f1f1
+
+  .post
+    .noarticleimage
+      .post-title
+        color: #f1f1f1
+      .post-meta-text
+        color: #8f8f8f
+    .post-content
+      color: #e8e8e8
+      p,
+      a
+        color: #e8e8e8
+      figcaption
+        color: #c7c7c7
+      hr
+        border-top-color: #3a3a3a
+      blockquote
+        border-left-color: #57ad68
+    .bottom-teaser
+      hr
+        border-top-color: #3a3a3a
+      .isLeft
+        a
+          color: #f1f1f1
+          &:hover
+            color: #f1f1f1
+        p
+          &.published
+            color: #a8a8a8
+      .isRight
+        .site-footer
+          color: #a8a8a8
+          a
+            color: #f1f1f1
+          .poweredby
+            color: #f1f1f1
+
+  .share
+    a
+      color: #8f8f8f
+      &:hover
+        color: #f1f1f1
+
+  pre,
+  code
+    color: #e8e8e8
+    border-color: #3a3a3a
+    background-color: #1c2230

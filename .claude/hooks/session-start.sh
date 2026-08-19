@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # SessionStart hook for Claude Code on the web: installs the gems and npm
 # packages needed to run `bundle exec jekyll build`, `bundle exec rake test`,
 # `npm run lint:css`, and `npm run lint:js` during the session.

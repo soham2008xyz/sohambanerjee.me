@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1280" viewBox="0 0 720 1280" role="img" aria-labelledby="title desc">
+  <title id="title">Agentic engineering: specify, build, verify</title>
+  <desc id="desc">Portrait illustration with three vertically connected stages: requirements, AI execution and verified delivery.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101b32"/>
+      <stop offset="0.55" stop-color="#102941"/>
+      <stop offset="1" stop-color="#142b37"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0H0V60" fill="none" stroke="#a4dbe2" stroke-opacity=".10"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#86dcca"/>
+    </marker>
+  </defs>
+  <rect width="720" height="1280" fill="url(#background)"/>
+  <rect width="720" height="1280" fill="url(#grid)"/>
+  <!-- All three stages stay within the middle 50% of the canvas,
+       where mobile background-size: cover cannot crop them. -->
+  <g fill="none" stroke="#86dcca" stroke-width="4" stroke-dasharray="9 12" marker-end="url(#arrow)">
+    <path d="M360 345V400"/>
+    <path d="M360 610V665"/>
+  </g>
+  <g transform="translate(190 150)">
+    <rect width="340" height="195" rx="31" fill="#132c4a" stroke="#60b7d9" stroke-width="4"/>
+    <rect x="45" y="35" width="250" height="33" rx="8" fill="#255374"/>
+    <rect x="45" y="90" width="210" height="13" rx="6" fill="#4d9dc5"/>
+    <rect x="45" y="123" width="245" height="13" rx="6" fill="#4d9dc5" opacity=".8"/>
+    <rect x="45" y="156" width="165" height="13" rx="6" fill="#4d9dc5" opacity=".6"/>
+    <circle cx="280" cy="157" r="18" fill="#78d5ca"/>
+    <path d="M271 158l7 6 13-15" fill="none" stroke="#173849" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(190 400)">
+    <rect width="340" height="210" rx="37" fill="#173e51" stroke="#88deca" stroke-width="4"/>
+    <rect x="110" y="38" width="120" height="132" rx="20" fill="#285e66" stroke="#9be8d2" stroke-width="3"/>
+    <path d="M151 83l-21 20 21 20M189 83l21 20-21 20M180 71l-20 65" fill="none" stroke="#b7f1e2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="none" stroke="#88deca" stroke-width="5" stroke-linecap="round">
+      <path d="M138 18v19M170 18v19M202 18v19M138 173v19M170 173v19M202 173v19"/>
+      <path d="M85 72h24M85 105h24M85 138h24M231 72h24M231 105h24M231 138h24"/>
+    </g>
+  </g>
+  <g transform="translate(190 665)">
+    <rect width="340" height="205" rx="31" fill="#173e4b" stroke="#82dcc3" stroke-width="4"/>
+    <path d="M101 97l52 49 96-106" fill="none" stroke="#b7f1d7" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M64 39h212M64 167h212" fill="none" stroke="#5cacb0" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+  </g>
+</svg>

@@ -311,6 +311,23 @@ body
         text-indent: -9999px
         padding-top: 33%
         z-index: 1
+    @media(max-width: 700px) and (orientation: landscape)
+      &.has-landscape-hero
+        background-color: #101b32
+        .post-image-image
+          display: block
+          background-size: contain
+          background-position: center
+          background-repeat: no-repeat
+          position: absolute
+          top: 0
+          left: 0
+          right: 0
+          bottom: 0
+          text-indent: -9999px
+          z-index: 1
+        .post-image-image2
+          display: none
     .post-meta
       position: absolute
       bottom: $rs*5

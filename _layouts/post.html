@@ -8,7 +8,7 @@
     <main class="content" role="main">
       <article class="post">
         {% if page.image %}
-        <div class="article-image">
+        <div class="article-image{% if page.landscape_hero %} has-landscape-hero{% endif %}">
           <div class="post-image-image" style="background-image: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({% if page.image %}{{ page.image | prepend: site.baseurl }}{% endif %})">
             Article Image
           </div>

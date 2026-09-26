@@ -47,6 +47,9 @@ image2: /assets/article_images/YYYY-MM-DD-slug/hero.jpg
 
 - Add `featured` tag to show in the featured section on the homepage
 - Article images go in `assets/article_images/YYYY-MM-DD-slug/`
+- `image` is the desktop hero; `image2` is the mobile hero. Use a portrait-specific image2 when the desktop illustration is landscape and would be cropped on small screens.
+- For posts with a portrait `image2` and a landscape `image`, set optional `landscape_hero: true`. In narrow landscape viewports, the post layout uses the landscape asset with `background-size: contain` instead of cropping the portrait asset.
+- If a post uses an SVG hero, add an optional `social_image` pointing to a 1200×630 raster PNG in the same article directory. `_includes/head.html` uses it for Open Graph and Twitter previews while retaining the SVG for the page background.
 - Drafts go in `_drafts/` (no date prefix in filename)
 
 ## Styles

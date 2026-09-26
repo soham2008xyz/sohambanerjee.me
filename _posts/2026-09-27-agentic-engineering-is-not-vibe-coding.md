@@ -5,7 +5,9 @@ date: 2026-09-27 03:45:00 +0530
 categories:
 tags: featured engineering ai agentic-engineering
 image: /assets/article_images/2026-09-27-agentic-engineering-is-not-vibe-coding/hero.svg
-image2: /assets/article_images/2026-09-27-agentic-engineering-is-not-vibe-coding/hero.svg
+image2: /assets/article_images/2026-09-27-agentic-engineering-is-not-vibe-coding/hero-mobile.svg
+landscape_hero: true
+social_image: /assets/article_images/2026-09-27-agentic-engineering-is-not-vibe-coding/hero-social.png
 excerpt: >
   AI can write a feature in minutes. That does not mean it can own the result.
   The difference between vibe coding and agentic engineering is not which
